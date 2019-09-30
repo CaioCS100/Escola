@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="StyleSheet" type="text/css" href="../resources/css/login.css" />
+	<title>Login Escola</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="message" />
+		<div class="centralizar" align="center">
+			<p:panelGrid columns="2" style="width: 18%">
+				<p:outputLabel for="login" value="Login:" />
+				<p:inputText id="login" value="#{loginController.login.email}"
+					required="true"></p:inputText>
+
+				<p:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{loginController.login.senha}"
+					required="true"></p:password>
+			</p:panelGrid>
+			<p:commandButton value="Login" ajax="true" update="@form" style="margin-top: 3px; width: 18%"
+				id="btnLogin" action="#{loginController.fazerLogin()}" />
+		</div>
+	</h:form>
+</h:body>
+</html>
