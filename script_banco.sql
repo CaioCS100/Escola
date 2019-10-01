@@ -11,6 +11,7 @@ id serial primary key,
 matricula integer,
 senha varchar(100),
 id_categoria integer not null,
+ativo boolean default true,
 ultima_modificacao timestamp default now(),
 foreign key(id_categoria) references categorias(id)
 );
