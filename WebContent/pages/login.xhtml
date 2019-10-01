@@ -13,7 +13,7 @@
 	<h:form>
 		<p:growl id="message" />
 		<div class="centralizar" align="center">
-			<p:panelGrid columns="2" style="width: 18%">
+			<p:panelGrid columns="2">
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" value="#{loginController.login.email}"
 					required="true"></p:inputText>
@@ -22,7 +22,7 @@
 				<p:password id="senha" value="#{loginController.login.senha}"
 					required="true"></p:password>
 			</p:panelGrid>
-			<p:commandButton value="Login" ajax="true" update="@form" style="margin-top: 3px; width: 18%"
+			<p:commandButton value="Login" ajax="true" update="@form"
 				id="btnLogin" action="#{loginController.fazerLogin()}" />
 		</div>
 	</h:form>
