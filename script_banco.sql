@@ -20,10 +20,13 @@ create table alunos(
 
 id serial primary key,
 nome character varying(100),
-idade integer,
+data_nascimento date,
 cep character varying(10),
 endereco character varying(200),
+complemento character varying(200),
+bairro character varying(100),
 cidade character varying(100),
+uf character varying(2),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -33,10 +36,13 @@ create table professores(
 
 id serial primary key,
 nome character varying(100),
-idade integer,
+data_nascimento date,
 cep character varying(10),
 endereco character varying(200),
+complemento character varying(200),
+bairro character varying(100),
 cidade character varying(100),
+uf character varying(2),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -45,12 +51,14 @@ foreign key(id_matricula) references dados_matricula(id)
 create table funcionarios(
 
 id serial primary key,
-matricula integer,
 nome character varying(100),
-idade integer,
+data_nascimento date,
 cep character varying(10),
 endereco character varying(200),
+complemento character varying(200),
+bairro character varying(100),
 cidade character varying(100),
+uf character varying(2),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -89,8 +97,8 @@ INSERT INTO categorias(descricao)
 INSERT INTO dados_matricula(matricula, senha, id_categoria)
     VALUES (101010, '123', 3);
 
-INSERT INTO funcionarios(nome, idade, cep, endereco, cidade, id_matricula)
-    VALUES ('Adm', 50, '77.017-280', 'Quadra 903 Sul Alameda 15', 'Palmas', 1);
+INSERT INTO funcionarios(nome, data_nascimento, cep, endereco, complemento, bairro, cidade, uf, id_matricula)
+    VALUES ('Adm', '1985-12-25', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1);
 
 
 

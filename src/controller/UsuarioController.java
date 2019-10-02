@@ -1,13 +1,23 @@
 package controller;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
 import dao.UsuarioDAO;
 import model.Usuario;
+import static util.Sessao.*;
+
+import static util.Redirecionamento.*;
+import static enums.Categoria.*;
+
+import static util.Mensagem.*;
 
 @ManagedBean
 public class UsuarioController {
 	
-	Usuario usuario = new Usuario();
+	private Usuario usuario = new Usuario();
+	private static final String FUNCIONARIO_SESSAO = "funcionario";
+	private static final String PROFESSOR_SESSAO = "professor";
+	private static final String ALUNO_SESSAO = "cliente";
 	
 	public void fazerLogin() 
 	{
@@ -15,10 +25,27 @@ public class UsuarioController {
 		Usuario usuarioLogado = dao.verificarLogin(usuario.getMatricula(), usuario.getSenha());
 		
 		if (usuarioLogado == null)
-			System.out.println("Usuario ou login incorretos");
-		else
-			System.out.println("login certo");
+			criarMensagem(FacesMessage.SEVERITY_ERROR, "Login ou senha incorretos", "Erro de validação!");
 		
+		else if (usuarioLogado.getCategoria() == FUNCIONARIO.getValor())
+			carregarFuncionario(usuarioLogado);
+			
+		else
+			criarMensagem(FacesMessage.SEVERITY_INFO, "Login correto", "Sucesso!");
+			
+		
+	}
+	
+	public void carregarFuncionario(Usuario usuario)
+	{
+		
+		adicionarObjetoNaSessao(FUNCIONARIO_SESSAO, "");
+		redirecionarParaPagina("funcionario/principal");
+	}
+	
+	public void redirecionarLogin()
+	{
+		redirecionarParaPagina("login");
 	}
 
 	public Usuario getUsuario() {

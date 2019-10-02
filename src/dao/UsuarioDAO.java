@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import connection.ConnectionFactory;
 import static constantes.queries.QueriesUsuario.*;
 import model.Usuario;
+import static util.Mensagem.*;
 
 public class UsuarioDAO {
 	
@@ -32,9 +32,7 @@ public class UsuarioDAO {
 				}
 			}
 		} catch (SQLException ex) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), "Erro");
-	        FacesContext contexto = FacesContext.getCurrentInstance();
-	        contexto.addMessage(null, msg);
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em consultar os dados do login com o banco de dados!");
 	        ex.printStackTrace();
 		}
 		

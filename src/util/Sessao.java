@@ -3,20 +3,19 @@ package util;
 import javax.faces.context.FacesContext;
 
 public class Sessao {
-	private final String OBJETO_SESSAO;
 	
-	public Sessao(String nomeObjetoSessao) {
-		OBJETO_SESSAO = nomeObjetoSessao;
-	}
-	
-	public void adicionarObjetoNaSessao(Object object)
+	public static void adicionarObjetoNaSessao(String nomeObjetoSessao, Object object)
 	{
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(OBJETO_SESSAO, object);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(nomeObjetoSessao, object);
 	}
 	
-	public Object recuperarObjetoDaSessao(String nomeObjetoSessao)
+	public static Object recuperarObjetoDaSessao(String nomeObjetoSessao)
 	{
 		return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(nomeObjetoSessao);
 	}
-
+	
+	public static void removerObjetoDaSessao(String nomeObjetoSessao)
+	{
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
 }
