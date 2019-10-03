@@ -9,15 +9,25 @@ import static util.Sessao.*;
 public class FuncionarioController {
 
 	private Pessoa funcionario = new Pessoa();
+	private Pessoa funcionarioSelecionado;
+	private final Pessoa funcionarioSessao;
 	private static final String FUNCIONARIO_SESSAO = "funcionario";
 
 	public FuncionarioController() {
-		funcionario = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
+		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
 	}
 
-	public void deslogar() {
-		removerObjetoDaSessao(FUNCIONARIO_SESSAO);
+	public void cadastrarFuncionario()
+	{
+		System.out.println("chegou aqui");
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	public Pessoa getFuncionario() {
 		return funcionario;
@@ -25,5 +35,17 @@ public class FuncionarioController {
 
 	public void setFuncionario(Pessoa funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public Pessoa getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
+	}
+
+	public void setFuncionarioSelecionado(Pessoa funcionarioSelecionado) {
+		this.funcionarioSelecionado = funcionarioSelecionado;
+	}
+
+	public Pessoa getFuncionarioSessao() {
+		return funcionarioSessao;
 	}
 }

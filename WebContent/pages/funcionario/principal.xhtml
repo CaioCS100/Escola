@@ -14,17 +14,16 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
-			<p:menuitem value="Inicio" url="../pages/principal.xhtml" />
-			<p:menuitem value="Cadastrar Funcionario"
-				url="../pages/cadastrarFuncionario.xhtml" />
+			<p:menuitem value="Inicio" action="#{usuarioController.redirecionar('funcionario/principal')}" />
+			<p:menuitem value="Cadastrar Funcionario" action="#{usuarioController.redirecionar('funcionario/cadastroFuncionario')}" />
 			<p:menuitem value="Cadastrar Aula" url="#" />
 			<p:menuitem value="Visualizar Aulas" url="#" />
 
 			<f:facet name="options">
 				<p:outputLabel
-					value="Bem vindo #{funcionarioController.funcionario.nome} !" />
-				<p:commandButton type="submit"
-					action="#" value="Sair" />
+					value="Bem vindo #{funcionarioController.funcionarioSessao.nome}!" />
+				<p:commandButton type="submit" action="#{usuarioController.sair()}"
+					value="Sair" />
 			</f:facet>
 		</p:menubar>
 	</h:form>

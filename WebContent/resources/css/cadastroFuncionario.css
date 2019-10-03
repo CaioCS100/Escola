@@ -1,0 +1,9 @@
+.direita {
+	float: right;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-collapse: separate;
+	border-width: 0px;
+	border-style: none;
+}

@@ -2,6 +2,7 @@ package controller;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
+import dao.FuncionarioDAO;
 import dao.UsuarioDAO;
 import model.Usuario;
 import static util.Sessao.*;
@@ -19,8 +20,7 @@ public class UsuarioController {
 	private static final String PROFESSOR_SESSAO = "professor";
 	private static final String ALUNO_SESSAO = "cliente";
 	
-	public void fazerLogin() 
-	{
+	public void fazerLogin() {
 		UsuarioDAO dao = new UsuarioDAO();
 		Usuario usuarioLogado = dao.verificarLogin(usuario.getMatricula(), usuario.getSenha());
 		
@@ -32,22 +32,24 @@ public class UsuarioController {
 			
 		else
 			criarMensagem(FacesMessage.SEVERITY_INFO, "Login correto", "Sucesso!");
-			
-		
 	}
 	
-	public void carregarFuncionario(Usuario usuario)
-	{
-		
-		adicionarObjetoNaSessao(FUNCIONARIO_SESSAO, "");
-		redirecionarParaPagina("funcionario/principal");
+	public void carregarFuncionario(Usuario usuario) {
+		adicionarObjetoNaSessao(FUNCIONARIO_SESSAO, new FuncionarioDAO().procurarFuncionario(usuario.getId()));
+		redirecionar("funcionario/principal");
 	}
 	
-	public void redirecionarLogin()
-	{
-		redirecionarParaPagina("login");
+	public void sair() {
+		redirecionar("login");
+		removerObjetoDaSessao(FUNCIONARIO_SESSAO);
+		removerObjetoDaSessao(PROFESSOR_SESSAO);
+		removerObjetoDaSessao(ALUNO_SESSAO);
 	}
-
+	
+	public void redirecionar(String caminhoDaPagina) {
+		redirecionarParaPagina(caminhoDaPagina);
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

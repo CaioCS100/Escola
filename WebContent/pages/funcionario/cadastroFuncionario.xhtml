@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="StyleSheet" type="text/css" href="../../resources/css/cadastroFuncionario.css" />
+	<title>Cadastro de Funcionario</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="mensagem" showDetail="true" />
+		<div align="center">
+			<p:panelGrid columns="1" styleClass="alinhar direita">
+				<p:row>
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" styleClass="ladoEsquerdo"
+						value="#{funcionarioController.funcionario.nome}" required="true"></p:inputText>
+				</p:row>
+				<p:row>
+
+					<p:outputLabel for="cep" value="CEP:" />
+					<p:inputText id="cep" styleClass="ladoEsquerdo"
+						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputText>
+				</p:row>
+				<p:row>
+
+					<p:outputLabel for="bairro" value="Bairro:" />
+					<p:inputText id="bairro" styleClass="ladoEsquerdo"
+						value="#{funcionarioController.funcionario.bairro}"></p:inputText>
+				</p:row>
+				<p:row>
+
+					<p:outputLabel for="complemento" value="Complemento:" />
+					<p:inputText id="complemento" styleClass="ladoEsquerdo"
+						value="#{funcionarioController.funcionario.complemento}"></p:inputText>
+				</p:row>
+				<p:row>
+
+					<p:outputLabel for="matricula" value="Matricula:" />
+					<p:inputMask id="matricula" required="true" mask="999999"
+						styleClass="ladoEsquerdo"
+						value="#{funcionarioController.funcionario.matricula}"></p:inputMask>
+				</p:row>
+			</p:panelGrid>
+			<p:panelGrid columns="1" styleClass="alinhar">
+				<p:row>
+					<p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+					<p:datePicker id="dtNascimento" required="true"
+						value="#{funcionarioController.funcionario.dataNascimento}"
+						showIcon="true" />
+				</p:row>
+				<p:row>
+					<p:outputLabel for="endereco" value="Endereço:" />
+					<p:inputText id="endereco"
+						value="#{funcionarioController.funcionario.endereco}"></p:inputText>
+				</p:row>
+				<p:row>
+					<p:outputLabel for="cidade" value="Cidade:" />
+					<p:inputText id="cidade"
+						value="#{funcionarioController.funcionario.cidade}"></p:inputText>
+				</p:row>
+				<p:row>
+					<p:outputLabel for="uf" value="UF:" />
+					<p:selectOneMenu id="uf"
+						value="#{funcionarioController.funcionario.uf}"
+						style="width:125px">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+						<f:selectItem itemLabel="PS4" itemValue="PS4" />
+						<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+					</p:selectOneMenu>
+				</p:row>
+				<p:row>
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" required="true"
+						value="#{funcionarioController.funcionario.senha}"></p:password>
+				</p:row>
+			</p:panelGrid>
+			<p:commandButton value="Salvar"
+				action="#{funcionarioController.cadastrarFuncionario()}"
+				update="@form" />
+		</div>
+	</h:form>
+</h:body>
+</html>

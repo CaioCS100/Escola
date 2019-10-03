@@ -95,10 +95,11 @@ INSERT INTO categorias(descricao)
     VALUES ('Aluno'), ('Professor'), ('Funcionario');
 
 INSERT INTO dados_matricula(matricula, senha, id_categoria)
-    VALUES (101010, '123', 3);
+    VALUES (101010, '123', 3), (202020, '321', 3);
 
 INSERT INTO funcionarios(nome, data_nascimento, cep, endereco, complemento, bairro, cidade, uf, id_matricula)
-    VALUES ('Adm', '1985-12-25', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1);
+    VALUES ('Adm', '1985-12-25', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1),
+	   ('Caio', '2014-02-03', '29.171-741', 'Rua Meca', 'complemento 2', 'Parque Residencial de Tubarão', 'Serra', 'ES', 2);
 
 
 
