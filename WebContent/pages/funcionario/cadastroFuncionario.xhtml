@@ -6,79 +6,81 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="StyleSheet" type="text/css" href="../../resources/css/cadastroFuncionario.css" />
+	<link rel="StyleSheet" type="text/css"
+		href="../../resources/css/cadastroFuncionario.css" />
 	<title>Cadastro de Funcionario</title>
 </h:head>
 <h:body>
 	<h:form>
 		<p:growl id="mensagem" showDetail="true" />
 		<div align="center">
-			<p:panelGrid columns="1" styleClass="alinhar direita">
-				<p:row>
+			<p:row>
+				<p:panelGrid columns="4">
 					<p:outputLabel for="nome" value="Nome:" />
-					<p:inputText id="nome" styleClass="ladoEsquerdo"
+					<p:inputText id="nome"
 						value="#{funcionarioController.funcionario.nome}" required="true"></p:inputText>
-				</p:row>
-				<p:row>
 
-					<p:outputLabel for="cep" value="CEP:" />
-					<p:inputText id="cep" styleClass="ladoEsquerdo"
-						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputText>
-				</p:row>
-				<p:row>
-
-					<p:outputLabel for="bairro" value="Bairro:" />
-					<p:inputText id="bairro" styleClass="ladoEsquerdo"
-						value="#{funcionarioController.funcionario.bairro}"></p:inputText>
-				</p:row>
-				<p:row>
-
-					<p:outputLabel for="complemento" value="Complemento:" />
-					<p:inputText id="complemento" styleClass="ladoEsquerdo"
-						value="#{funcionarioController.funcionario.complemento}"></p:inputText>
-				</p:row>
-				<p:row>
-
-					<p:outputLabel for="matricula" value="Matricula:" />
-					<p:inputMask id="matricula" required="true" mask="999999"
-						styleClass="ladoEsquerdo"
-						value="#{funcionarioController.funcionario.matricula}"></p:inputMask>
-				</p:row>
-			</p:panelGrid>
-			<p:panelGrid columns="1" styleClass="alinhar">
-				<p:row>
 					<p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
 					<p:datePicker id="dtNascimento" required="true"
 						value="#{funcionarioController.funcionario.dataNascimento}"
 						showIcon="true" />
-				</p:row>
-				<p:row>
+
+					<p:outputLabel for="cpf" value="CPF:" />
+					<p:inputText id="cpf"
+						value="#{funcionarioController.funcionario.cpf}" required="true"></p:inputText>
+
+					<p:outputLabel for="telefone" value="Telefone:" />
+					<p:inputText id="telefone"
+						value="#{funcionarioController.funcionario.telefone}"
+						required="true"></p:inputText>
+
+					<p:outputLabel for="email" value="Email:" />
+					<p:inputText id="email"
+						value="#{funcionarioController.funcionario.email}" required="true"></p:inputText>
+
+					<p:outputLabel for="cep" value="CEP:" />
+					<p:inputText id="cep"
+						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputText>
+
 					<p:outputLabel for="endereco" value="Endereço:" />
 					<p:inputText id="endereco"
 						value="#{funcionarioController.funcionario.endereco}"></p:inputText>
-				</p:row>
-				<p:row>
+
+					<p:outputLabel for="bairro" value="Bairro:" />
+					<p:inputText id="bairro"
+						value="#{funcionarioController.funcionario.bairro}"></p:inputText>
+
 					<p:outputLabel for="cidade" value="Cidade:" />
 					<p:inputText id="cidade"
 						value="#{funcionarioController.funcionario.cidade}"></p:inputText>
-				</p:row>
-				<p:row>
+
 					<p:outputLabel for="uf" value="UF:" />
 					<p:selectOneMenu id="uf"
-						value="#{funcionarioController.funcionario.uf}"
-						style="width:125px">
+						value="#{funcionarioController.funcionario.uf}">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-						<f:selectItem itemLabel="PS4" itemValue="PS4" />
-						<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+						<f:selectItem itemLabel="Xbox One" itemValue="al" />
+						<f:selectItem itemLabel="PS4" itemValue="sp" />
+						<f:selectItem itemLabel="Wii U" itemValue="rj" />
 					</p:selectOneMenu>
-				</p:row>
-				<p:row>
+
+					<p:outputLabel for="complemento" value="Complemento:" />
+					<p:inputText id="complemento"
+						value="#{funcionarioController.funcionario.complemento}"></p:inputText>
+
+					<p:outputLabel for="matricula" value="Matricula:" />
+					<p:inputMask id="matricula" required="true" mask="999999"
+						value="#{funcionarioController.funcionario.matricula}"></p:inputMask>
+
 					<p:outputLabel for="senha" value="Senha:" />
-					<p:password id="senha" required="true"
+					<p:password id="senha" required="true" match="confirmarSenha"
 						value="#{funcionarioController.funcionario.senha}"></p:password>
-				</p:row>
-			</p:panelGrid>
+
+					<p:outputLabel for="confirmarSenha" value="Confirmar senha:" />
+					<p:password id="confirmarSenha" required="true"></p:password>
+				</p:panelGrid>
+			</p:row>
+
+
 			<p:commandButton value="Salvar"
 				action="#{funcionarioController.cadastrarFuncionario()}"
 				update="@form" />

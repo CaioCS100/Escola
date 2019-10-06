@@ -9,7 +9,8 @@ create table dados_matricula(
 
 id serial primary key,
 matricula integer,
-senha varchar(100),
+email character varying(100),
+senha character varying(100),
 id_categoria integer not null,
 ativo boolean default true,
 ultima_modificacao timestamp default now(),
@@ -21,6 +22,8 @@ create table alunos(
 id serial primary key,
 nome character varying(100),
 data_nascimento date,
+cpf character varying(14),
+telefone character varying(15),
 cep character varying(10),
 endereco character varying(200),
 complemento character varying(200),
@@ -37,6 +40,8 @@ create table professores(
 id serial primary key,
 nome character varying(100),
 data_nascimento date,
+cpf character varying(14),
+telefone character varying(15),
 cep character varying(10),
 endereco character varying(200),
 complemento character varying(200),
@@ -53,6 +58,8 @@ create table funcionarios(
 id serial primary key,
 nome character varying(100),
 data_nascimento date,
+cpf character varying(14),
+telefone character varying(15),
 cep character varying(10),
 endereco character varying(200),
 complemento character varying(200),
@@ -94,12 +101,12 @@ foreign key(id_aluno) references alunos(id)
 INSERT INTO categorias(descricao)
     VALUES ('Aluno'), ('Professor'), ('Funcionario');
 
-INSERT INTO dados_matricula(matricula, senha, id_categoria)
-    VALUES (101010, '123', 3), (202020, '321', 3);
+INSERT INTO dados_matricula(matricula, email, senha, id_categoria)
+    VALUES (101010, 'adm@adm.com', '123', 3), (202020, 'caio@caio.com', '321', 3);
 
-INSERT INTO funcionarios(nome, data_nascimento, cep, endereco, complemento, bairro, cidade, uf, id_matricula)
-    VALUES ('Adm', '1985-12-25', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1),
-	   ('Caio', '2014-02-03', '29.171-741', 'Rua Meca', 'complemento 2', 'Parque Residencial de Tubarão', 'Serra', 'ES', 2);
+INSERT INTO funcionarios(nome, data_nascimento, cpf, telefone, cep, endereco, complemento, bairro, cidade, uf, id_matricula)
+    VALUES ('Adm', '1985-12-25', '123.456.789-09', '(82) 99999-9999', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1),
+	   ('Caio', '2014-02-03', '568.886.004-91', '(82) 88888-8888', '29.171-741', 'Rua Meca', 'complemento 2', 'Parque Residencial de Tubarão', 'Serra', 'ES', 2);
 
 
 

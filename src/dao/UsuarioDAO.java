@@ -28,6 +28,7 @@ public class UsuarioDAO {
 					usuario = new Usuario();
 					usuario.setId(rs.getLong("id"));
 					usuario.setMatricula(rs.getInt("matricula"));
+					usuario.setEmail(rs.getString("email"));
 					usuario.setCategoria(rs.getInt("id_categoria"));
 				}
 			}

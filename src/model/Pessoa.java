@@ -6,6 +6,8 @@ public class Pessoa extends Usuario {
 	
 	private String nome;
 	private Date dataNascimento;
+	private String cpf;
+	private String telefone;
 	private String cep;
 	private String endereco;
 	private String complemento;
@@ -17,11 +19,11 @@ public class Pessoa extends Usuario {
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -30,6 +32,22 @@ public class Pessoa extends Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
 	public String getCep() {
 		return cep;
 	}
