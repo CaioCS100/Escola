@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:stella="http://stella.caelum.com.br/faces2">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="StyleSheet" type="text/css"
@@ -12,7 +13,7 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:growl id="mensagem" showDetail="true" />
+		<p:growl id="mensagem" />
 		<div align="center">
 			<p:row>
 				<p:panelGrid columns="4">
@@ -26,21 +27,27 @@
 						showIcon="true" />
 
 					<p:outputLabel for="cpf" value="CPF:" />
-					<p:inputText id="cpf"
-						value="#{funcionarioController.funcionario.cpf}" required="true"></p:inputText>
+					<p:inputMask id="cpf" mask="999.999.999-99"
+						validator="cpfValidator"
+						value="#{funcionarioController.funcionario.cpf}" required="true">
+						<stella:validateCPF />
+						<p:ajax update="@this, mensagem" event="blur" />
+					</p:inputMask>
 
 					<p:outputLabel for="telefone" value="Telefone:" />
-					<p:inputText id="telefone"
+					<p:inputMask id="telefone" mask="(99) 99999-9999"
 						value="#{funcionarioController.funcionario.telefone}"
-						required="true"></p:inputText>
+						required="true"></p:inputMask>
 
 					<p:outputLabel for="email" value="Email:" />
-					<p:inputText id="email"
-						value="#{funcionarioController.funcionario.email}" required="true"></p:inputText>
+					<p:inputText id="email" validator="emailValidator"
+						value="#{funcionarioController.funcionario.email}" required="true">
+						<p:ajax update="@this, mensagem" event="blur"/>
+						</p:inputText>
 
 					<p:outputLabel for="cep" value="CEP:" />
-					<p:inputText id="cep"
-						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputText>
+					<p:inputMask id="cep" mask="99.999-999"
+						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputMask>
 
 					<p:outputLabel for="endereco" value="Endereço:" />
 					<p:inputText id="endereco"
@@ -57,10 +64,8 @@
 					<p:outputLabel for="uf" value="UF:" />
 					<p:selectOneMenu id="uf"
 						value="#{funcionarioController.funcionario.uf}">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItem itemLabel="Xbox One" itemValue="al" />
-						<f:selectItem itemLabel="PS4" itemValue="sp" />
-						<f:selectItem itemLabel="Wii U" itemValue="rj" />
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{funcionarioController.ufs}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<p:outputLabel for="complemento" value="Complemento:" />

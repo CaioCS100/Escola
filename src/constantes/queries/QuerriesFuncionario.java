@@ -11,4 +11,9 @@ public class QuerriesFuncionario {
 			"insert into funcionarios(nome, data_nascimento, cpf, telefone, cep, endereco, complemento, bairro,"
 			+ " cidade, uf, id_matricula)"
 			+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	public static final String QUERY_CONSULTAR_CPF = 
+			"select cpf"
+			+ " from funcionarios"
+			+ " where cpf like ?";
 }

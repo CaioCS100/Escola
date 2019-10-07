@@ -9,5 +9,14 @@
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
 	</application>
-	
+
+	<validator>
+		<validator-id>cpfValidator</validator-id>
+		<validator-class>validator.CPFValidator</validator-class>
+	</validator>
+	<validator>
+		<validator-id>emailValidator</validator-id>
+		<validator-class>validator.EmailValidator</validator-class>
+	</validator>
+
 </faces-config>

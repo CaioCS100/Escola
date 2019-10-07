@@ -89,5 +89,22 @@ public class FuncionarioDAO {
 		
 		return false;
 	}
+	
+	public Boolean verificarSeExisteCpfCadastrado(String cpf)
+	{
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_CPF)) {
+			pst.setString(1, cpf);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next())
+					return true;
+					
+			}
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em verificar cpf do funcionário!");
+		}
+		
+		return false;
+	}
 
 }

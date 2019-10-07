@@ -11,4 +11,14 @@ public class QueriesLogin {
 			"insert into dados_matricula(matricula, email, senha, id_categoria)"
 			+ " values (?, ?, ?, ?)"
 			+ " returning id";
+	
+	public static final String QUERY_CONSULTAR_EMAIL = 
+			"select email"
+			+ " from dados_matricula"
+			+ " where email like ?";
+	
+	public static final String QUERY_CONSULTAR_MATRICULA = 
+			"select matricula"
+			+ " from dados_matricula"
+			+ " where matricula = ?";
 }
