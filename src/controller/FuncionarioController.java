@@ -5,9 +5,12 @@ import javax.faces.bean.ManagedBean;
 
 import dao.FuncionarioDAO;
 import model.Pessoa;
+import util.ConsultarCep;
+
 import static enums.Categoria.*;
 import static util.Sessao.*;
 import static util.Ufs.*;
+import static util.ConsultarCep.*;
 
 import java.util.ArrayList;
 
@@ -39,9 +42,9 @@ public class FuncionarioController {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em cadastrar o funcionário", "erro!");
 	}
 	
-	public void verificarCPF()
+	public void verificarCEP()
 	{
-		
+		this.funcionario.setEndereco(consulta(this.funcionario.getEndereco().getCep().replaceAll("\\D", "")));
 			
 	}
 	

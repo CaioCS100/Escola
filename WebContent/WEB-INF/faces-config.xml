@@ -18,5 +18,9 @@
 		<validator-id>emailValidator</validator-id>
 		<validator-class>validator.EmailValidator</validator-class>
 	</validator>
+	<validator>
+		<validator-id>matriculaValidator</validator-id>
+		<validator-class>validator.MatriculaValidator</validator-class>
+	</validator>
 
 </faces-config>

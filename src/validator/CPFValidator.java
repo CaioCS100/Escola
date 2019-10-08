@@ -22,7 +22,7 @@ public class CPFValidator implements Validator{
 		String cpf = (String) valor;
 		
 		if (this.dao.verificarSeExisteCpfCadastrado(cpf))
-			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF já cadastrado!", "erro!"));
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "CPF já cadastrado!", "erro!"));
 	}
 
 }

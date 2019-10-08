@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.faces.application.FacesMessage;
 
 import connection.ConnectionFactory;
+import model.Endereco;
 import model.Pessoa;
 import static constantes.queries.QuerriesFuncionario.*;
 import static constantes.queries.QueriesLogin.QUERY_CADASTRAR_DADOS_MATRICULA;
@@ -32,12 +33,12 @@ public class FuncionarioDAO {
 					funcionario.setDataNascimento(rs.getDate("data_nascimento"));
 					funcionario.setCpf(rs.getString("cpf"));
 					funcionario.setTelefone(rs.getString("telefone"));
-					funcionario.setCep(rs.getString("cep"));
-					funcionario.setEndereco(rs.getString("endereco"));
-					funcionario.setComplemento(rs.getString("complemento"));
-					funcionario.setBairro(rs.getString("bairro"));
-					funcionario.setCidade(rs.getString("cidade"));
-					funcionario.setUf(rs.getString("uf"));
+					funcionario.getEndereco().setCep(rs.getString("cep"));
+					funcionario.getEndereco().setLogradouro(rs.getString("endereco"));
+					funcionario.getEndereco().setComplemento(rs.getString("complemento"));
+					funcionario.getEndereco().setBairro(rs.getString("bairro"));
+					funcionario.getEndereco().setCidade(rs.getString("cidade"));
+					funcionario.getEndereco().setUf(rs.getString("uf"));
 					funcionario.setMatricula_id(rs.getInt("id_matricula"));
 				}
 			}
@@ -71,12 +72,12 @@ public class FuncionarioDAO {
 				pstFuncionario.setDate(2, new Date(funcionario.getDataNascimento().getTime()));
 				pstFuncionario.setString(3, funcionario.getCpf());
 				pstFuncionario.setString(4, funcionario.getTelefone());
-				pstFuncionario.setString(5, funcionario.getCep());
-				pstFuncionario.setString(6, funcionario.getEndereco());
-				pstFuncionario.setString(7, funcionario.getComplemento());
-				pstFuncionario.setString(8, funcionario.getBairro());
-				pstFuncionario.setString(9, funcionario.getCidade());
-				pstFuncionario.setString(10, funcionario.getUf());
+				pstFuncionario.setString(5, funcionario.getEndereco().getCep());
+				pstFuncionario.setString(6, funcionario.getEndereco().getLogradouro());
+				pstFuncionario.setString(7, funcionario.getEndereco().getComplemento());
+				pstFuncionario.setString(8, funcionario.getEndereco().getBairro());
+				pstFuncionario.setString(9, funcionario.getEndereco().getCidade());
+				pstFuncionario.setString(10, funcionario.getEndereco().getUf());
 				pstFuncionario.setInt(11, matriculaID);
 				pstFuncionario.executeUpdate();
 			} 

@@ -26,12 +26,12 @@
 						value="#{funcionarioController.funcionario.dataNascimento}"
 						showIcon="true" />
 
-					<p:outputLabel for="cpf" value="CPF:" />
+					<p:outputLabel for="cpf" value="CPF:" id="labelCPF" />
 					<p:inputMask id="cpf" mask="999.999.999-99"
 						validator="cpfValidator"
 						value="#{funcionarioController.funcionario.cpf}" required="true">
 						<stella:validateCPF />
-						<p:ajax update="@this, mensagem" event="blur" />
+						<p:ajax update="@this, mensagem, labelCPF" event="blur" />
 					</p:inputMask>
 
 					<p:outputLabel for="telefone" value="Telefone:" />
@@ -39,42 +39,49 @@
 						value="#{funcionarioController.funcionario.telefone}"
 						required="true"></p:inputMask>
 
-					<p:outputLabel for="email" value="Email:" />
+					<p:outputLabel for="email" value="Email:" id="labelEmail" />
 					<p:inputText id="email" validator="emailValidator"
 						value="#{funcionarioController.funcionario.email}" required="true">
-						<p:ajax update="@this, mensagem" event="blur"/>
-						</p:inputText>
+						<p:ajax update="@this, mensagem, labelEmail" event="blur" />
+					</p:inputText>
 
 					<p:outputLabel for="cep" value="CEP:" />
 					<p:inputMask id="cep" mask="99.999-999"
-						value="#{funcionarioController.funcionario.cep}" required="true"></p:inputMask>
+						value="#{funcionarioController.funcionario.endereco.cep}"
+						required="true">
+						<p:ajax listener="#{funcionarioController.verificarCEP()}" event="blur" update="@this, mensagem, endereco, bairro, cidade, uf"/>
+					</p:inputMask>
 
 					<p:outputLabel for="endereco" value="Endereço:" />
 					<p:inputText id="endereco"
-						value="#{funcionarioController.funcionario.endereco}"></p:inputText>
+						value="#{funcionarioController.funcionario.endereco.logradouro}"></p:inputText>
 
 					<p:outputLabel for="bairro" value="Bairro:" />
 					<p:inputText id="bairro"
-						value="#{funcionarioController.funcionario.bairro}"></p:inputText>
+						value="#{funcionarioController.funcionario.endereco.bairro}"></p:inputText>
 
 					<p:outputLabel for="cidade" value="Cidade:" />
 					<p:inputText id="cidade"
-						value="#{funcionarioController.funcionario.cidade}"></p:inputText>
+						value="#{funcionarioController.funcionario.endereco.cidade}"></p:inputText>
 
 					<p:outputLabel for="uf" value="UF:" />
 					<p:selectOneMenu id="uf"
-						value="#{funcionarioController.funcionario.uf}">
+						value="#{funcionarioController.funcionario.endereco.uf}">
 						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 						<f:selectItems value="#{funcionarioController.ufs}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<p:outputLabel for="complemento" value="Complemento:" />
 					<p:inputText id="complemento"
-						value="#{funcionarioController.funcionario.complemento}"></p:inputText>
+						value="#{funcionarioController.funcionario.endereco.complemento}"></p:inputText>
 
-					<p:outputLabel for="matricula" value="Matricula:" />
+					<p:outputLabel for="matricula" value="Matricula:"
+						id="labelMatricula" />
 					<p:inputMask id="matricula" required="true" mask="999999"
-						value="#{funcionarioController.funcionario.matricula}"></p:inputMask>
+						validator="matriculaValidator"
+						value="#{funcionarioController.funcionario.matricula}">
+						<p:ajax event="blur" update="@this, labelMatricula, mensagem" />
+					</p:inputMask>
 
 					<p:outputLabel for="senha" value="Senha:" />
 					<p:password id="senha" required="true" match="confirmarSenha"
@@ -89,6 +96,10 @@
 			<p:commandButton value="Salvar"
 				action="#{funcionarioController.cadastrarFuncionario()}"
 				update="@form" />
+
+			<!-- 					<p:outputLabel for="numero" value="Numero:" /> -->
+			<!-- 					<p:inputText id="numero" -->
+			<!-- 						value="#{funcionarioController.funcionario.endereco.numero}"></p:inputText> -->
 		</div>
 	</h:form>
 </h:body>
