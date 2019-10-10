@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:stella="http://stella.caelum.com.br/faces2">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -107,11 +108,17 @@
 				</p:panelGrid>
 			</p:row>
 
-
 			<p:commandButton value="Salvar"
 				action="#{funcionarioController.cadastrarFuncionario()}"
 				update="@form" />
 		</div>
+		
+		<p:ajaxStatus onstart="PF('dlgLoading').show()" onsuccess="PF('dlgLoading').hide()"/>
+		
 	</h:form>
+	
+	<ui:insert name="dlgLoading">
+		<ui:include src="/template/dialogs/dialogLoading.html" />
+	</ui:insert>
 </h:body>
 </html>
