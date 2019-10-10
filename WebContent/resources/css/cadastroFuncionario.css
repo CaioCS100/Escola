@@ -2,12 +2,12 @@
 	border-collapse: inherit;	
 }
 
-/* .ui-inputfield { */
-/* 	margin-right: 1%; */
-/* } */
-
 .ui-panelgrid .ui-panelgrid-cell {
 	border-collapse: separate;
 	border-width: 0px;
 	border-style: none;
+}
+
+.separarTopo {
+	margin-top: 5%;
 }

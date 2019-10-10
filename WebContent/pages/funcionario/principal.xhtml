@@ -3,29 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="StyleSheet" type="text/css"
-		href="../resources/css/login.css" />
-	<title>Tela Principal</title>
-</h:head>
-<h:body>
-	<h:form>
-		<p:growl id="messages" />
-		<p:menubar>
-			<p:menuitem value="Inicio" action="#{usuarioController.redirecionar('funcionario/principal')}" />
-			<p:menuitem value="Cadastrar Funcionario" action="#{usuarioController.redirecionar('funcionario/cadastroFuncionario')}" />
-			<p:menuitem value="Cadastrar Aula" url="#" />
-			<p:menuitem value="Visualizar Aulas" url="#" />
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-			<f:facet name="options">
-				<p:outputLabel
-					value="Bem vindo #{funcionarioController.funcionarioSessao.nome}!" />
-				<p:commandButton type="submit" action="#{usuarioController.sair()}"
-					value="Sair" />
-			</f:facet>
-		</p:menubar>
-	</h:form>
-</h:body>
+<ui:composition template="/template/templateGeral.xhtml">
+	<ui:define name="title">
+        Tela Principal
+    </ui:define>
+
+	<ui:define name="conteudo">
+		<h1>hey aaa</h1>
+	</ui:define>
+</ui:composition>
 </html>
