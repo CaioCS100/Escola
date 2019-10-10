@@ -33,12 +33,14 @@ public class FuncionarioDAO {
 					funcionario.setDataNascimento(rs.getDate("data_nascimento"));
 					funcionario.setCpf(rs.getString("cpf"));
 					funcionario.setTelefone(rs.getString("telefone"));
+					funcionario.setEmail(rs.getString("email"));
 					funcionario.getEndereco().setCep(rs.getString("cep"));
 					funcionario.getEndereco().setLogradouro(rs.getString("endereco"));
 					funcionario.getEndereco().setComplemento(rs.getString("complemento"));
 					funcionario.getEndereco().setBairro(rs.getString("bairro"));
 					funcionario.getEndereco().setCidade(rs.getString("cidade"));
 					funcionario.getEndereco().setUf(rs.getString("uf"));
+					funcionario.getEndereco().setNumero(rs.getString("numero"));
 					funcionario.setMatricula_id(rs.getInt("id_matricula"));
 				}
 			}
@@ -56,9 +58,8 @@ public class FuncionarioDAO {
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pstMatricula = conn.prepareStatement(QUERY_CADASTRAR_DADOS_MATRICULA)) {
 			pstMatricula.setInt(1, funcionario.getMatricula());
-			pstMatricula.setString(2, funcionario.getEmail());
-			pstMatricula.setString(3, funcionario.getSenha());
-			pstMatricula.setInt(4, funcionario.getCategoria());
+			pstMatricula.setString(2, funcionario.getSenha());
+			pstMatricula.setInt(3, funcionario.getCategoria());
 			
 			try (ResultSet rs = pstMatricula.executeQuery()) {
 				while (rs.next())
@@ -72,13 +73,15 @@ public class FuncionarioDAO {
 				pstFuncionario.setDate(2, new Date(funcionario.getDataNascimento().getTime()));
 				pstFuncionario.setString(3, funcionario.getCpf());
 				pstFuncionario.setString(4, funcionario.getTelefone());
-				pstFuncionario.setString(5, funcionario.getEndereco().getCep());
-				pstFuncionario.setString(6, funcionario.getEndereco().getLogradouro());
-				pstFuncionario.setString(7, funcionario.getEndereco().getComplemento());
-				pstFuncionario.setString(8, funcionario.getEndereco().getBairro());
-				pstFuncionario.setString(9, funcionario.getEndereco().getCidade());
-				pstFuncionario.setString(10, funcionario.getEndereco().getUf());
-				pstFuncionario.setInt(11, matriculaID);
+				pstFuncionario.setString(5, funcionario.getEmail());
+				pstFuncionario.setString(6, funcionario.getEndereco().getCep());
+				pstFuncionario.setString(7, funcionario.getEndereco().getLogradouro());
+				pstFuncionario.setString(8, funcionario.getEndereco().getComplemento());
+				pstFuncionario.setString(9, funcionario.getEndereco().getBairro());
+				pstFuncionario.setString(10, funcionario.getEndereco().getCidade());
+				pstFuncionario.setString(11, funcionario.getEndereco().getUf());
+				pstFuncionario.setString(12, funcionario.getEndereco().getNumero());
+				pstFuncionario.setInt(13, matriculaID);
 				pstFuncionario.executeUpdate();
 			} 
 			
@@ -107,5 +110,20 @@ public class FuncionarioDAO {
 		
 		return false;
 	}
-
+	
+	public Boolean verificarSeExisteEmailCadastrado(String email)
+	{
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_EMAIL)) {
+			pst.setString(1, email);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next())
+					return true;
+			}
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em verificar email do funcionário!");
+		}
+		
+		return false;
+	}
 }

@@ -6,7 +6,7 @@ public class Endereco {
 	private String cidade;
 	private String uf;
 	private String bairro;
-	private Integer numero;
+	private String numero;
 	private String complemento;
 	
 	
@@ -50,11 +50,11 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 	
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 	
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	

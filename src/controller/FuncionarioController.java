@@ -3,6 +3,8 @@ package controller;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
+import br.com.correios.bsb.sigep.master.bean.cliente.SQLException_Exception;
+import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
 import dao.FuncionarioDAO;
 import model.Pessoa;
 import util.ConsultarCep;
@@ -44,15 +46,13 @@ public class FuncionarioController {
 	
 	public void verificarCEP()
 	{
-		this.funcionario.setEndereco(consulta(this.funcionario.getEndereco().getCep().replaceAll("\\D", "")));
+		try {
+			this.funcionario.setEndereco(consulta(this.funcionario.getEndereco().getCep().replaceAll("\\D", "")));
+		} catch (SQLException_Exception | SigepClienteException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "erro!");
+		}
 			
 	}
-	
-	
-	
-	
-	
-	
 
 	public Pessoa getFuncionario() {
 		return funcionario;

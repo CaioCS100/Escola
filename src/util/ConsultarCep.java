@@ -9,23 +9,19 @@ import model.Endereco;
 
 public class ConsultarCep {
 	
-	public static Endereco consulta(String cep)
+	public static Endereco consulta(String cep) throws SQLException_Exception, SigepClienteException
 	{
 		Endereco endereco = null;
 		AtendeClienteService service = new AtendeClienteService();
         AtendeCliente port = service.getAtendeClientePort();
-        try {
-        	EnderecoERP enderecoERP = port.consultaCEP(cep);
-        	endereco = new Endereco();
-        	
-        	endereco.setCep(cep);
-        	endereco.setLogradouro(enderecoERP.getEnd());
-        	endereco.setCidade(enderecoERP.getCidade());
-        	endereco.setUf(enderecoERP.getUf());
-        	endereco.setBairro(enderecoERP.getBairro());
-		} catch (SQLException_Exception | SigepClienteException ex) {
-			ex.printStackTrace();
-		}
+    	EnderecoERP enderecoERP = port.consultaCEP(cep);
+    	endereco = new Endereco();
+    	endereco.setCep(cep);
+    	endereco.setLogradouro(enderecoERP.getEnd());
+    	endereco.setCidade(enderecoERP.getCidade());
+    	endereco.setUf(enderecoERP.getUf());
+    	endereco.setBairro(enderecoERP.getBairro());
+    	
 		return endereco;
 	}
 }

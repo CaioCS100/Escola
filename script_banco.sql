@@ -9,7 +9,6 @@ create table dados_matricula(
 
 id serial primary key,
 matricula integer,
-email character varying(100),
 senha character varying(100),
 id_categoria integer not null,
 ativo boolean default true,
@@ -24,12 +23,14 @@ nome character varying(100),
 data_nascimento date,
 cpf character varying(14),
 telefone character varying(15),
+email character varying(100),
 cep character varying(10),
 endereco character varying(200),
-complemento character varying(200),
-bairro character varying(100),
 cidade character varying(100),
+bairro character varying(100),
 uf character varying(2),
+numero character varying(10),
+complemento character varying(200),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -42,12 +43,14 @@ nome character varying(100),
 data_nascimento date,
 cpf character varying(14),
 telefone character varying(15),
+email character varying(100),
 cep character varying(10),
 endereco character varying(200),
-complemento character varying(200),
-bairro character varying(100),
 cidade character varying(100),
+bairro character varying(100),
 uf character varying(2),
+numero character varying(10),
+complemento character varying(200),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -60,12 +63,14 @@ nome character varying(100),
 data_nascimento date,
 cpf character varying(14),
 telefone character varying(15),
+email character varying(100),
 cep character varying(10),
 endereco character varying(200),
-complemento character varying(200),
-bairro character varying(100),
 cidade character varying(100),
+bairro character varying(100),
 uf character varying(2),
+numero character varying(10),
+complemento character varying(200),
 id_matricula integer,
 ultima_modificacao timestamp default now(),
 foreign key(id_matricula) references dados_matricula(id)
@@ -101,12 +106,12 @@ foreign key(id_aluno) references alunos(id)
 INSERT INTO categorias(descricao)
     VALUES ('Aluno'), ('Professor'), ('Funcionario');
 
-INSERT INTO dados_matricula(matricula, email, senha, id_categoria)
-    VALUES (101010, 'adm@adm.com', '123', 3), (202020, 'caio@caio.com', '321', 3);
+INSERT INTO dados_matricula(matricula, senha, id_categoria)
+    VALUES (101010, '123', 3), (202020, '321', 3);
 
-INSERT INTO funcionarios(nome, data_nascimento, cpf, telefone, cep, endereco, complemento, bairro, cidade, uf, id_matricula)
-    VALUES ('Adm', '1985-12-25', '123.456.789-09', '(82) 99999-9999', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 1),
-	   ('Caio', '2014-02-03', '568.886.004-91', '(82) 88888-8888', '29.171-741', 'Rua Meca', 'complemento 2', 'Parque Residencial de Tubarão', 'Serra', 'ES', 2);
+INSERT INTO funcionarios(nome, data_nascimento, cpf, telefone, email, cep, endereco, complemento, bairro, cidade, uf, numero, id_matricula)
+    VALUES ('Adm', '1985-12-25', '123.456.789-09', '(82) 99999-9999', 'adm@adm.com', '77.017-280', 'Quadra 903 Sul Alameda 15', 'complemento', 'bairro', 'Palmas', 'MG', 'A1' 1),
+	   ('Caio', '2014-02-03', '568.886.004-91', '(82) 88888-8888', 'caio@caio.com', '29.171-741', 'Rua Meca', 'complemento 2', 'Parque Residencial de Tubarão', 'Serra', 'ES', '12', 2);
 
 
 

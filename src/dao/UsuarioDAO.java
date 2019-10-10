@@ -28,7 +28,6 @@ public class UsuarioDAO {
 					usuario = new Usuario();
 					usuario.setId(rs.getLong("id"));
 					usuario.setMatricula(rs.getInt("matricula"));
-					usuario.setEmail(rs.getString("email"));
 					usuario.setCategoria(rs.getInt("id_categoria"));
 				}
 			}
@@ -39,21 +38,6 @@ public class UsuarioDAO {
 		return usuario;
 	}
 	
-	public Boolean verificarSeExisteEmailCadastrado(String email)
-	{
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_EMAIL)) {
-			pst.setString(1, email);
-			try (ResultSet rs = pst.executeQuery()) {
-				if (rs.next())
-					return true;
-			}
-		} catch (SQLException ex) {
-			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em verificar email do funcionário!");
-		}
-		
-		return false;
-	}
 	
 	public Boolean verificarSeExisteMatriculaCadastrada(Long matricula)
 	{

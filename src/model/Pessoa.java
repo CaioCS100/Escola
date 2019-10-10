@@ -8,6 +8,7 @@ public class Pessoa extends Usuario {
 	private Date dataNascimento;
 	private String cpf;
 	private String telefone;
+	private String email;
 	private Endereco endereco;
 	private Integer matricula_id;
 	
@@ -46,6 +47,14 @@ public class Pessoa extends Usuario {
 	
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public Endereco getEndereco() {
