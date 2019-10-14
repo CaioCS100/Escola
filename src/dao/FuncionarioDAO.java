@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 
@@ -125,5 +126,29 @@ public class FuncionarioDAO {
 		}
 		
 		return false;
+	}
+	
+	public ArrayList<Pessoa> listarFuncionarios()
+	{
+		ArrayList<Pessoa> listaFuncionarios = new ArrayList<>();
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(QUERY_LISTAR_FUNCIONARIOS);
+				ResultSet rs = pst.executeQuery()) {
+			while (rs.next())
+			{
+				Pessoa funcionario = new Pessoa();
+				funcionario.setId(rs.getLong("id"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setDataNascimento(rs.getDate("data_nascimento"));
+				funcionario.setCpf(rs.getString("cpf"));
+				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setEmail(rs.getString("email"));
+				listaFuncionarios.add(funcionario);
+			}
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em listar funcionários!");
+		}
+		
+		return listaFuncionarios;
 	}
 }

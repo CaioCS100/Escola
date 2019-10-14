@@ -3,14 +3,62 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+<f:metadata>
+	<f:viewAction
+		action="#{funcionarioController.carregarTabelaFuncionarios()}" />
+</f:metadata>
 <ui:composition template="/template/templateGeral.xhtml">
 	<ui:define name="title">
         Listar Funcionario
     </ui:define>
 	<ui:define name="conteudo">
-		<h1>hey</h1>
+		<h:form>
+			<p:dataTable var="funcionario" styleClass="tabela" rows="10"
+				rowStyleClass="linha" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				value="#{funcionarioController.listaFuncionarios}">
+				<f:facet name="header">Lista de Funcionários</f:facet>
+
+				<p:column headerText="Id">
+					<h:outputText value="#{funcionario.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{funcionario.nome}" />
+				</p:column>
+
+				<p:column headerText="Data de Nascimento">
+					<h:outputText value="#{funcionario.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="CPF">
+					<h:outputText value="#{funcionario.cpf}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{funcionario.telefone}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{funcionario.email}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton value="Visualizar" action="#" />
+					<p:commandButton value="Editar" action="#" />
+				</p:column>
+
+				<f:facet name="footer">
+        		Existem um total de #{fn:length(funcionarioController.listaFuncionarios)} funcionários
+		    </f:facet>
+			</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

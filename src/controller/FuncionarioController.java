@@ -2,6 +2,8 @@ package controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.correios.bsb.sigep.master.bean.cliente.SQLException_Exception;
 import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import static util.Mensagem.*;
 
 @ManagedBean
+@ViewScoped
 public class FuncionarioController {
 
 	private Pessoa funcionario;
@@ -27,12 +30,14 @@ public class FuncionarioController {
 	private static final String FUNCIONARIO_SESSAO = "funcionario";
 	private final FuncionarioDAO dao;
 	private final ArrayList<String> ufs;
+	private ArrayList<Pessoa> listaFuncionarios;
 
 	public FuncionarioController() {
 		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
 		this.ufs = CARREGAR_UFS;
 		this.funcionario = new Pessoa();
 		this.dao = new FuncionarioDAO();
+		cadastrarFuncionario();
 	}
 
 	public void cadastrarFuncionario()
@@ -52,6 +57,11 @@ public class FuncionarioController {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "erro!");
 		}
 			
+	}
+	
+	public void carregarTabelaFuncionarios()
+	{
+		this.listaFuncionarios = this.dao.listarFuncionarios();
 	}
 
 	public Pessoa getFuncionario() {
@@ -76,5 +86,9 @@ public class FuncionarioController {
 
 	public ArrayList<String> getUfs() {
 		return ufs;
+	}
+
+	public ArrayList<Pessoa> getListaFuncionarios() {
+		return listaFuncionarios;
 	}
 }
