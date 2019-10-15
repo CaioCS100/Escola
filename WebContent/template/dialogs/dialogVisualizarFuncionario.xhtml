@@ -6,8 +6,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
-	<p:dialog resizable="false" closable="false" draggable="false" header="Processando..." modal="true" widgetVar="dlgLoading">
-		<p:graphicImage value="../../resources/images/loading.gif" />
+	<p:dialog resizable="false" closable="true" draggable="false"
+		header="Funcionário" modal="true" widgetVar="dlgFuncionario">
+		<ui:insert name="camposFuncionario">
+			<ui:include src="/template/camposFuncionario.xhtml" />
+		</ui:insert>
 	</p:dialog>
 </h:body>
 </html>

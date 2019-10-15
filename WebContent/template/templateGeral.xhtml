@@ -7,12 +7,43 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="StyleSheet" type="text/css"
-		href="../resources/css/login.css" />
-	<link rel="StyleSheet" type="text/css"
-		href="../../resources/css/cadastroFuncionario.css" />
+	<h:outputStylesheet library="css" name="login.css" />
+	<h:outputStylesheet library="css" name="cadastroFuncionario.css" />
 	<h:outputStylesheet library="css" name="tabelaFuncionario.css" />
 	<title><ui:insert name="title" /></title>
+	<script>
+		PrimeFaces.locales['pt_BR'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			currentText : 'Data Atual',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo Dia'
+		};
+	</script>
 </h:head>
 <h:body>
 	<h:form>
@@ -37,12 +68,17 @@
 		</p:menubar>
 	</h:form>
 
-	<div class="container">
+	<div>
 		<ui:insert name="conteudo"></ui:insert>
 	</div>
 
 	<ui:insert name="dlgLoading">
-		<ui:include src="/template/dialogs/dialogLoading.html" />
+		<ui:include src="/template/dialogs/dialogLoading.xhtml" />
 	</ui:insert>
+	
+	<ui:insert name="dlgFuncionario">
+		<ui:include src="/template/dialogs/dialogVisualizarFuncionario.xhtml" />
+	</ui:insert>
+	
 </h:body>
 </html>

@@ -43,6 +43,7 @@ public class FuncionarioDAO {
 					funcionario.getEndereco().setUf(rs.getString("uf"));
 					funcionario.getEndereco().setNumero(rs.getString("numero"));
 					funcionario.setMatricula_id(rs.getInt("id_matricula"));
+					funcionario.setMatricula(rs.getInt("matricula"));
 				}
 			}
 		} catch (SQLException ex) {
@@ -143,6 +144,7 @@ public class FuncionarioDAO {
 				funcionario.setCpf(rs.getString("cpf"));
 				funcionario.setTelefone(rs.getString("telefone"));
 				funcionario.setEmail(rs.getString("email"));
+				funcionario.setMatricula_id(rs.getInt("id_matricula"));
 				listaFuncionarios.add(funcionario);
 			}
 		} catch (SQLException ex) {
