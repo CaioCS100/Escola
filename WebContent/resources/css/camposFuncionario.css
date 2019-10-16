@@ -11,3 +11,16 @@
 .separarTopo {
 	margin-top: 5%;
 }
+
+.btnEditar {
+	margin: 2% 0% 0% 72%;
+}
+
+.btnCadastrar {
+	margin: 2% 0% 0% 36%;
+}
+
+.btnProcurar {
+	width: 25% !important;
+    height: 30px !important;
+}

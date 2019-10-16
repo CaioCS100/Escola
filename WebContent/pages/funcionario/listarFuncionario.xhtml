@@ -50,8 +50,15 @@
 				</p:column>
 
 				<p:column headerText="Ações">
-					<p:commandButton value="Visualizar"
-						action="#{funcionarioController.visualizarFuncionario(funcionario)}" update="@(.forms)" />
+					<p:commandButton icon="ui-icon-circle-zoomout"
+						id="btnVisualizar" styleClass="btnProcurar" 
+						action="#{funcionarioController.visualizarFuncionario()}"
+						update="@(.forms)">
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{funcionarioController.funcionario}" />
+					</p:commandButton>
+					 <p:tooltip id="toolTipFade" for="btnVisualizar" value="Visualizar Funcionários" position="top"/>
+
 				</p:column>
 
 				<f:facet name="footer">
