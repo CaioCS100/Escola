@@ -1,1 +1,3 @@
-.ui-icon
+.ui-icon.visualizar {
+	background-image: url("../images/eye-icon.png") !important;
+}

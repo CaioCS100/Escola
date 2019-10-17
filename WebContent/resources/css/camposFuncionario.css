@@ -24,3 +24,7 @@
 	width: 25% !important;
     height: 30px !important;
 }
+
+.ui-button-icon-only .ui-icon {
+    left: 50%;
+    margin-left: -10px;
