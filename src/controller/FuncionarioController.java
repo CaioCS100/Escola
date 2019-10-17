@@ -13,6 +13,7 @@ import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
 import dao.FuncionarioDAO;
 import model.Pessoa;
 import util.ConsultarCep;
+import util.Redirecionamento;
 
 import static enums.Categoria.*;
 import static util.Sessao.*;
@@ -35,7 +36,8 @@ public class FuncionarioController {
 	private ArrayList<Pessoa> listaFuncionarios;
 	private Boolean edicaoFuncionario;
 	private Boolean cadastroFuncionario;
-	private Boolean somenteLeitura;
+	private Boolean leituraFuncionario;
+	private String nomeCampoEdicao;
 
 	public FuncionarioController() {
 		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
@@ -57,11 +59,26 @@ public class FuncionarioController {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em cadastrar o funcionário", "erro!");
 	}
 	
+	public void abrirModalCadastroFuncionario()
+	{
+		this.funcionario = new Pessoa();
+		configuracaoParaCadastrar();
+		PrimeFaces.current().ajax().update("formFuncionario");
+		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
+	}
+	
+	public void visualizarFuncionario()
+	{
+		this.funcionario = this.dao.procurarFuncionario(Long.valueOf(((Integer) funcionario.getMatricula_id())));
+		configuracaoCamposSomenteParaVisualizacao();
+		PrimeFaces.current().ajax().update("formFuncionario");
+		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
+	}
+	
 	public void editarFuncionario()
 	{
-		System.out.println("aqui");
-		if (this.somenteLeitura)
-			this.somenteLeitura = false;
+		if (this.leituraFuncionario)
+			configuracaoCamposParaEdicao();
 		else
 			System.out.println("Pronto para editar");
 	}
@@ -73,7 +90,6 @@ public class FuncionarioController {
 		} catch (SQLException_Exception | SigepClienteException ex) {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "erro!");
 		}
-			
 	}
 	
 	public void carregarTabelaFuncionarios()
@@ -81,16 +97,34 @@ public class FuncionarioController {
 		this.listaFuncionarios = this.dao.listarFuncionarios();
 	}
 	
-	public void visualizarFuncionario()
+	public void fecharModal()
 	{
-		this.funcionario = this.dao.procurarFuncionario(Long.valueOf(((Integer) funcionario.getMatricula_id())));
-		this.edicaoFuncionario = true;
-		this.cadastroFuncionario = false;
-		this.somenteLeitura = true;
-		PrimeFaces.current().ajax().update("@(.forms)");
-		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
+		PrimeFaces.current().executeScript("PF('dlgFuncionario').hide()");
 	}
-
+	
+	private void configuracaoParaCadastrar()
+	{
+		this.cadastroFuncionario = true;
+		this.leituraFuncionario = false;
+		this.edicaoFuncionario = false;
+	}
+	
+	private void configuracaoCamposSomenteParaVisualizacao()
+	{
+		this.leituraFuncionario = true;
+		this.edicaoFuncionario = false;
+		this.cadastroFuncionario = false;
+		this.nomeCampoEdicao = "Alterar";
+	}
+	
+	private void configuracaoCamposParaEdicao()
+	{
+		this.edicaoFuncionario = true;
+		this.leituraFuncionario = false;
+		this.cadastroFuncionario = false;
+		this.nomeCampoEdicao = "Salvar";
+	}
+	
 	public Pessoa getFuncionario() {
 		return funcionario;
 	}
@@ -119,7 +153,11 @@ public class FuncionarioController {
 		return cadastroFuncionario;
 	}
 
-	public Boolean getSomenteLeitura() {
-		return somenteLeitura;
+	public Boolean getLeituraFuncionario() {
+		return leituraFuncionario;
+	}
+
+	public String getNomeCampoEdicao() {
+		return nomeCampoEdicao;
 	}
 }

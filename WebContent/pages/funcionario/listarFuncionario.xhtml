@@ -15,7 +15,7 @@
         Listar Funcionario
     </ui:define>
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="formTabela">
 			<p:dataTable var="funcionario" styleClass="tabela" rows="10"
 				rowStyleClass="linha" paginator="true"
 				paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
@@ -51,9 +51,9 @@
 
 				<p:column headerText="Ações">
 					<p:commandButton icon="ui-icon-circle-zoomout"
-						id="btnVisualizar" styleClass="btnProcurar" 
+						id="btnVisualizar" styleClass="btnProcurar"
 						action="#{funcionarioController.visualizarFuncionario()}"
-						update="@(.forms)">
+						update="formFuncionario">
 						<f:setPropertyActionListener value="#{funcionario}"
 							target="#{funcionarioController.funcionario}" />
 					</p:commandButton>
