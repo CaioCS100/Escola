@@ -133,15 +133,16 @@
 				<p:commandButton value="Salvar"
 					rendered="#{funcionarioController.cadastroFuncionario}"
 					action="#{funcionarioController.cadastrarFuncionario()}"
-					styleClass="btnCadastrar" update="formFuncionario" />
+					styleClass="botoesFormulario" update="formFuncionario" />
 
 				<p:commandButton value="#{funcionarioController.nomeCampoEdicao}"
 					rendered="#{funcionarioController.leituraFuncionario or funcionarioController.edicaoFuncionario}"
 					action="#{funcionarioController.editarFuncionario()}"
-					styleClass="btnEditar" process="@this" update="formFuncionario" />
+					styleClass="botoesFormulario" process="@this"
+					update="formFuncionario" />
 
 				<p:commandButton value="Voltar" ajax="true" immediate="true"
-					action="#{funcionarioController.fecharModal()}" />
+					styleClass="btns" action="#{funcionarioController.fecharModal()}" />
 			</div>
 		</h:form>
 		<p:ajaxStatus onstart="PF('dlgLoading').show()"

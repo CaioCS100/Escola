@@ -12,19 +12,6 @@
 	margin-top: 5%;
 }
 
-.btnEditar {
-	margin: 2% 0% 0% 72%;
+.botoesFormulario {
+	margin: 2% 0% 0% 62%;
 }
-
-.btnCadastrar {
-	margin: 2% 0% 0% 36%;
-}
-
-.btnProcurar {
-	width: 25% !important;
-    height: 30px !important;
-}
-
-.ui-button-icon-only .ui-icon {
-    left: 50%;
-    margin-left: -10px;

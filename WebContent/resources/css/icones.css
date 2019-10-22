@@ -1,3 +1,8 @@
-.ui-icon.visualizar {
-	background-image: url("../images/eye-icon.png") !important;
+.icone {
+	width: 20% !important;
+    height: 30px !important;
+}
+
+.btns {
+	margin-left: 10px;
 }
