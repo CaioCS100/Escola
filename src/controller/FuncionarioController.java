@@ -61,18 +61,19 @@ public class FuncionarioController {
 	
 	public void abrirModalCadastroFuncionario()
 	{
-		this.funcionario = new Pessoa();
 		configuracaoParaCadastrar();
+		this.funcionario = new Pessoa();
 		PrimeFaces.current().ajax().update("formFuncionario");
 		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
 	}
 	
-	public void visualizarFuncionario()
+	public void visualizarFuncionario(Pessoa funcionarioSelecionado)
 	{
-		this.funcionario = this.dao.procurarFuncionario(Long.valueOf(((Integer) funcionario.getMatricula_id())));
 		configuracaoCamposSomenteParaVisualizacao();
-		PrimeFaces.current().ajax().update("formFuncionario");
+		this.funcionario = this.dao.procurarFuncionario(Long.valueOf(((Integer) funcionarioSelecionado.getMatricula_id())));
+		PrimeFaces.current().ajax().update(":formTabela");
 		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
+		System.out.println(this.funcionario.getEndereco().getBairro());
 	}
 	
 	public void editarFuncionario()

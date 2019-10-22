@@ -7,7 +7,7 @@
 	xmlns:stella="http://stella.caelum.com.br/faces2"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
-	<p:dialog resizable="false" closable="true" draggable="false"
+	<p:dialog resizable="false" closable="false" draggable="false"
 		header="Funcionário" modal="true" widgetVar="dlgFuncionario">
 		<h:form id="formFuncionario">
 			<p:growl id="mensagem" />
@@ -138,8 +138,7 @@
 				<p:commandButton value="#{funcionarioController.nomeCampoEdicao}"
 					rendered="#{funcionarioController.leituraFuncionario or funcionarioController.edicaoFuncionario}"
 					action="#{funcionarioController.editarFuncionario()}"
-					styleClass="botoesFormulario" process="@this"
-					update="formFuncionario" />
+					styleClass="botoesFormulario" update=":formFuncionario" />
 
 				<p:commandButton value="Voltar" ajax="true" immediate="true"
 					styleClass="btns" action="#{funcionarioController.fecharModal()}" />
