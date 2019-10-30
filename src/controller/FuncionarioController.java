@@ -29,22 +29,20 @@ import static util.Mensagem.*;
 public class FuncionarioController {
 
 	private Pessoa funcionario;
+	private Pessoa funcionarioSelecionado;
 	private final Pessoa funcionarioSessao;
 	private static final String FUNCIONARIO_SESSAO = "funcionario";
 	private final FuncionarioDAO dao;
 	private final ArrayList<String> ufs;
 	private ArrayList<Pessoa> listaFuncionarios;
 	private Boolean edicaoFuncionario;
-	private Boolean cadastroFuncionario;
 	private Boolean leituraFuncionario;
-	private String nomeCampoEdicao;
 
 	public FuncionarioController() {
 		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
 		this.ufs = CARREGAR_UFS;
 		this.funcionario = new Pessoa();
 		this.dao = new FuncionarioDAO();
-		this.cadastroFuncionario = true;
 	}
 
 	public void cadastrarFuncionario()
@@ -61,27 +59,33 @@ public class FuncionarioController {
 	
 	public void abrirModalCadastroFuncionario()
 	{
-		configuracaoParaCadastrar();
 		this.funcionario = new Pessoa();
-		PrimeFaces.current().ajax().update("formFuncionario");
-		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
+		PrimeFaces.current().ajax().update(":formCadFuncionario");
+		PrimeFaces.current().executeScript("PF('dlgCadFuncionario').show()");
 	}
 	
-	public void visualizarFuncionario(Pessoa funcionarioSelecionado)
+	public void abrirModalVisualizarFuncionario()
 	{
-		configuracaoCamposSomenteParaVisualizacao();
-		this.funcionario = this.dao.procurarFuncionario(Long.valueOf(((Integer) funcionarioSelecionado.getMatricula_id())));
-		PrimeFaces.current().ajax().update(":formTabela");
-		PrimeFaces.current().executeScript("PF('dlgFuncionario').show()");
-		System.out.println(this.funcionario.getEndereco().getBairro());
+		condicaoVisualizacaoEdicao(true, false);
+		buscarFuncionario();
+	}
+	
+	public void abrirModalEditarFuncionario()
+	{
+		condicaoVisualizacaoEdicao(false, true);
+		buscarFuncionario();
+	}
+	
+	public void buscarFuncionario()
+	{
+		this.funcionarioSelecionado = this.dao.procurarFuncionario(Long.valueOf((funcionario.getMatricula_id())));
+		PrimeFaces.current().ajax().update(":formEditarFuncionario");
+		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').show()");
 	}
 	
 	public void editarFuncionario()
 	{
-		if (this.leituraFuncionario)
-			configuracaoCamposParaEdicao();
-		else
-			System.out.println("Pronto para editar");
+		System.out.println("Pronto para editar");
 	}
 	
 	public void verificarCEP()
@@ -93,37 +97,21 @@ public class FuncionarioController {
 		}
 	}
 	
-	public void carregarTabelaFuncionarios()
-	{
+	public void carregarTabelaFuncionarios() {
 		this.listaFuncionarios = this.dao.listarFuncionarios();
 	}
 	
-	public void fecharModal()
-	{
-		PrimeFaces.current().executeScript("PF('dlgFuncionario').hide()");
+	public void fecharModalCadastroFuncionario() {
+		PrimeFaces.current().executeScript("PF('dlgCadFuncionario').hide()");
 	}
 	
-	private void configuracaoParaCadastrar()
-	{
-		this.cadastroFuncionario = true;
-		this.leituraFuncionario = false;
-		this.edicaoFuncionario = false;
+	public void fecharModalEdicaoFuncionario() {
+		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').hide()");
 	}
 	
-	private void configuracaoCamposSomenteParaVisualizacao()
-	{
-		this.leituraFuncionario = true;
-		this.edicaoFuncionario = false;
-		this.cadastroFuncionario = false;
-		this.nomeCampoEdicao = "Alterar";
-	}
-	
-	private void configuracaoCamposParaEdicao()
-	{
-		this.edicaoFuncionario = true;
-		this.leituraFuncionario = false;
-		this.cadastroFuncionario = false;
-		this.nomeCampoEdicao = "Salvar";
+	private void condicaoVisualizacaoEdicao(Boolean visualizandoFuncionario, Boolean editandoFuncionario) {
+		this.leituraFuncionario = visualizandoFuncionario;
+		this.edicaoFuncionario = editandoFuncionario;
 	}
 	
 	public Pessoa getFuncionario() {
@@ -132,6 +120,14 @@ public class FuncionarioController {
 
 	public void setFuncionario(Pessoa funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public Pessoa getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
+	}
+
+	public void setFuncionarioSelecionado(Pessoa funcionarioSelecionado) {
+		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 
 	public Pessoa getFuncionarioSessao() {
@@ -150,15 +146,7 @@ public class FuncionarioController {
 		return edicaoFuncionario;
 	}
 
-	public Boolean getCadastroFuncionario() {
-		return cadastroFuncionario;
-	}
-
 	public Boolean getLeituraFuncionario() {
 		return leituraFuncionario;
-	}
-
-	public String getNomeCampoEdicao() {
-		return nomeCampoEdicao;
 	}
 }

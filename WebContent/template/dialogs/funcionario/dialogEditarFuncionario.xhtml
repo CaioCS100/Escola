@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:stella="http://stella.caelum.com.br/faces2"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<p:dialog resizable="false" closable="false" draggable="false"
+		header="Funcionário" modal="true" widgetVar="dlgEditarFuncionario">
+		<h:form id="formEditarFuncionario">
+			<p:growl id="mensagem" />
+			<div align="center" class="separarTopo">
+				<p:panelGrid columns="4">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome"
+						requiredMessage="O campo Nome é obrigatório!"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.nome}" required="true"></p:inputText>
+						
+					<p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+					<p:datePicker id="dtNascimento" required="true"
+						rendered="#{funcionarioController.edicaoFuncionario}"
+						requiredMessage="O campo Data de Nascimento é obrigatório!"
+						value="#{funcionarioController.funcionarioSelecionado.dataNascimento}"
+						showIcon="true" />
+
+					<p:inputText
+						value="#{funcionarioController.funcionarioSelecionado.dataNascimento}"
+						readonly="true"
+						rendered="#{funcionarioController.leituraFuncionario}" />
+
+					<p:outputLabel for="cpf" value="CPF:" id="labelCPF" />
+					<p:inputMask id="cpf" mask="999.999.999-99"
+						validator="cpfValidator"
+						requiredMessage="O campo CPF é obrigatório!"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.cpf}" required="true">
+						<stella:validateCPF />
+						<p:ajax update="@this, mensagem, labelCPF" />
+					</p:inputMask>
+
+					<p:outputLabel for="telefone" value="Telefone:" />
+					<p:inputMask id="telefone" mask="(99) 99999-9999"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						requiredMessage="O campo Telefone é obrigatório!"
+						value="#{funcionarioController.funcionarioSelecionado.telefone}"
+						required="true"></p:inputMask>
+
+					<p:outputLabel for="email" value="Email:" id="labelEmail" />
+					<p:inputText id="email" validator="emailValidator"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						requiredMessage="O campo Email é obrigatório!"
+						value="#{funcionarioController.funcionarioSelecionado.email}" required="true">
+						<p:ajax update="@this, mensagem, labelEmail" />
+					</p:inputText>
+
+					<p:outputLabel for="cep" value="CEP:" id="labelCEP" />
+					<p:inputMask id="cep" mask="99.999-999"
+						requiredMessage="O campo CEP é obrigatório!"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.cep}"
+						required="true">
+						<p:ajax listener="#{funcionarioController.verificarCEP()}"
+							update="@this, mensagem, endereco, bairro, cidade, uf, labelCEP" />
+					</p:inputMask>
+
+					<p:outputLabel for="endereco" value="Endereço:" />
+					<p:inputText id="endereco"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.logradouro}"></p:inputText>
+
+					<p:outputLabel for="bairro" value="Bairro:" />
+					<p:inputText id="bairro"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.bairro}"></p:inputText>
+
+					<p:outputLabel for="cidade" value="Cidade:" />
+					<p:inputText id="cidade"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.cidade}"></p:inputText>
+
+					<p:outputLabel for="uf" value="UF:" />
+					<p:selectOneMenu id="uf"
+						rendered="#{funcionarioController.edicaoFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.uf}">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{funcionarioController.ufs}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:inputText
+						value="#{funcionarioController.funcionarioSelecionado.endereco.uf}"
+						readonly="true"
+						rendered="#{funcionarioController.leituraFuncionario}" />
+
+					<p:outputLabel for="numero" value="Numero:" />
+					<p:inputText id="numero" required="true"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						requiredMessage="O campo Numero é obrigatório!"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.numero}"></p:inputText>
+
+					<p:outputLabel for="complemento" value="Complemento:" />
+					<p:inputText id="complemento"
+						readonly="#{funcionarioController.leituraFuncionario}"
+						value="#{funcionarioController.funcionarioSelecionado.endereco.complemento}"></p:inputText>
+
+					<p:outputLabel for="matricula" value="Matricula:"
+						id="labelMatricula" />
+					<p:inputMask id="matricula" required="true" mask="999999"
+						validator="matriculaValidator"
+						readonly="true"
+						requiredMessage="O campo Matricula é obrigatório!"
+						value="#{funcionarioController.funcionarioSelecionado.matricula}">
+						<p:ajax update="@this, labelMatricula, mensagem" />
+					</p:inputMask>
+
+					<p:outputLabel for="senha" value="Senha:"
+						rendered="#{funcionarioController.edicaoFuncionario}" />
+					<p:password id="senha" required="true" match="confirmarSenha"
+						rendered="#{funcionarioController.edicaoFuncionario}"
+						requiredMessage="O campo Senha é obrigatório!"
+						validatorMessage="Os valores dos campos Senha e Confirmar Senha são diferentes!"
+						value="#{funcionarioController.funcionario.senha}"></p:password>
+
+					<p:outputLabel for="confirmarSenha" value="Confirmar senha:"
+						rendered="#{funcionarioController.edicaoFuncionario}" />
+					<p:password id="confirmarSenha" required="true"
+						rendered="#{funcionarioController.edicaoFuncionario}"
+						requiredMessage="É obrigatório confirmar sua senha"></p:password>
+				</p:panelGrid>
+
+				<p:commandButton value="Editar"
+					rendered="#{funcionarioController.edicaoFuncionario}"
+					action="#{funcionarioController.editarFuncionario()}"
+					styleClass="botoesFormulario" update="formEditarFuncionario" />
+
+				<p:commandButton value="Fechar" ajax="true" immediate="true" update="formEditarFuncionario"
+					styleClass="botaoFechar" action="#{funcionarioController.fecharModalEdicaoFuncionario()}" />
+			</div>
+		</h:form>
+		<p:ajaxStatus onstart="PF('dlgLoading').show()"
+			onsuccess="PF('dlgLoading').hide()" />
+	</p:dialog>
+</h:body>
+</html>

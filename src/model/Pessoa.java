@@ -12,8 +12,7 @@ public class Pessoa extends Usuario {
 	private Endereco endereco;
 	private Integer matricula_id;
 	
-	public Pessoa()
-	{
+	public Pessoa() {
 		endereco = new Endereco();
 	}
 	

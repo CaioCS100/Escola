@@ -9,7 +9,6 @@ public class Endereco {
 	private String numero;
 	private String complemento;
 	
-	
 	public String getCep() {
 		return cep;
 	}

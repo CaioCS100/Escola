@@ -4,7 +4,6 @@ public class Usuario {
 	
 	private Long id;
 	private Integer matricula;
-	
 	private String senha;
 	private Integer categoria;
 	

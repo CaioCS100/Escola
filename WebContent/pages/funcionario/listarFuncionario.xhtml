@@ -51,11 +51,24 @@
 
 				<p:column headerText="Ações">
 					<p:commandButton icon="fa fa-fw fas fa-eye" id="btnVisualizar"
-						styleClass="icone btns" update=":formFuncionario"
-						action="#{funcionarioController.visualizarFuncionario(funcionario)}" />
+						styleClass="icone btns" ajax="true"
+						action="#{funcionarioController.abrirModalVisualizarFuncionario()}">
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{funcionarioController.funcionario}" />
+					</p:commandButton>
 
 					<p:tooltip id="toolTipVisualizar" for="btnVisualizar"
 						value="Visualizar Funcionário" position="top" />
+
+					<p:commandButton icon="fa fa-fw fas fa-edit" id="btnEditar"
+						styleClass="icone btns" ajax="true"
+						action="#{funcionarioController.abrirModalEditarFuncionario()}">
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{funcionarioController.funcionario}" />
+					</p:commandButton>
+
+					<p:tooltip id="toolTipEditar" for="btnEditar"
+						value="Editar Funcionário" position="top" />
 
 					<p:commandButton icon="fa fa-fw fas fa-trash" id="btnExcluir"
 						styleClass="icone btns" action="#">

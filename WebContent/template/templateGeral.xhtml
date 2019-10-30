@@ -47,15 +47,15 @@
 	</script>
 </h:head>
 <h:body>
-	<h:form id="formTab">
+	<h:form id="formMenu">
 		<p:menubar>
 			<p:menuitem value="Inicio"
 				action="#{usuarioController.redirecionar('funcionario/principal')}" />
 			<p:submenu label="Gerenciar Funcionarios">
 				<p:menuitem value="Cadastrar Funcionario"
-					action="#{funcionarioController.abrirModalCadastroFuncionario()}" />
+					action="#{funcionarioController.abrirModalCadastroFuncionario()}" ajax="true" />
 				<p:menuitem value="Listar Funcionario"
-					action="#{usuarioController.redirecionar('funcionario/listarFuncionario')}" />
+					action="#{usuarioController.redirecionar('funcionario/listarFuncionario')}" ajax="false" />
 			</p:submenu>
 			<p:menuitem value="Cadastrar Aula" url="#" />
 			<p:menuitem value="Visualizar Aulas" url="#" />
@@ -77,9 +77,12 @@
 		<ui:include src="/template/dialogs/dialogLoading.xhtml" />
 	</ui:insert>
 	
-	<ui:insert name="dlgFuncionario">
-		<ui:include src="/template/dialogs/dialogFuncionario.xhtml" />
+	<ui:insert name="dlgCadFuncionario">
+		<ui:include src="/template/dialogs/funcionario/dialogCadastroFuncionario.xhtml" />
 	</ui:insert>
 	
+	<ui:insert name="dlgEditardFuncionario">
+		<ui:include src="/template/dialogs/funcionario/dialogEditarFuncionario.xhtml" />
+	</ui:insert>
 </h:body>
 </html>
