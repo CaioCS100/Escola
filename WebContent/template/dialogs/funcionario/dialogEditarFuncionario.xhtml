@@ -33,7 +33,6 @@
 
 					<p:outputLabel for="cpf" value="CPF:" id="labelCPF" />
 					<p:inputMask id="cpf" mask="999.999.999-99"
-						validator="cpfValidator"
 						requiredMessage="O campo CPF é obrigatório!"
 						readonly="#{funcionarioController.leituraFuncionario}"
 						value="#{funcionarioController.funcionarioSelecionado.cpf}" required="true">

@@ -24,7 +24,6 @@ public class MatriculaValidator implements Validator {
 		 
 		 if (this.dao.verificarSeExisteMatriculaCadastrada(matricula))
 			 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "matricula já cadastrada", "a matricula já está cadastrada"));
-		
 	}
 
 }

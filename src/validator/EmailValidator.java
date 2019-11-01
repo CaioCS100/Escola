@@ -10,31 +10,18 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import dao.FuncionarioDAO;
-
 @FacesValidator("emailValidator")
 public class EmailValidator implements Validator{
 	
-	private final FuncionarioDAO dao; 
 	private static final String EXPRESSAO_REGULAR = "^[_A-Za-z0-9-]+(\\." +
 			"[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*" +
 			"(\\.[A-Za-z]{2,})$";
-	
-	public EmailValidator()
-	{
-		this.dao = new FuncionarioDAO();
-	}
 
 	@Override
 	public void validate(FacesContext contexto, UIComponent componente, Object valor) throws ValidatorException {
 		String email = valor.toString();
 		if (!verificarEmail(email))
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email inválido", "Email inválido"));
-		else
-		{
-			if (this.dao.verificarSeExisteEmailCadastrado(email))
-				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Email já cadastrado", "Email já cadastrado"));
-		}
 		
 	}
 	

@@ -2,18 +2,15 @@ package controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.validator.ValidatorException;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.context.PrimeFacesContext;
 
 import br.com.correios.bsb.sigep.master.bean.cliente.SQLException_Exception;
 import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
 import dao.FuncionarioDAO;
 import model.Pessoa;
-import util.ConsultarCep;
-import util.Redirecionamento;
 
 import static enums.Categoria.*;
 import static util.Sessao.*;
@@ -48,13 +45,18 @@ public class FuncionarioController {
 	public void cadastrarFuncionario()
 	{		
 		this.funcionario.setCategoria(FUNCIONARIO.getValor());
-		if (this.dao.cadastrarFuncionario(funcionario))
+		if (verificarSeExisteCPFCadastrado(this.funcionario.getCpf()) && verificarSeExisteEmailCadastrado(this.funcionario.getEmail()))
 		{
-			criarMensagem(FacesMessage.SEVERITY_INFO, "Funcionário cadastrado com sucesso!", "sucesso!");
-			this.funcionario = new Pessoa();
+			if (this.dao.cadastrarFuncionario(funcionario)) 
+			{
+				criarMensagem(FacesMessage.SEVERITY_INFO, "Funcionário cadastrado com sucesso!", "sucesso!");
+				this.funcionario = new Pessoa();
+				carregarTabelaFuncionarios();
+				PrimeFaces.current().ajax().update(":formTabela");
+			}
+			else
+				criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em cadastrar o funcionário", "erro!");
 		}
-		else
-			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em cadastrar o funcionário", "erro!");
 	}
 	
 	public void abrirModalCadastroFuncionario()
@@ -97,16 +99,39 @@ public class FuncionarioController {
 		}
 	}
 	
-	public void carregarTabelaFuncionarios() {
+	public void carregarTabelaFuncionarios() 
+	{
 		this.listaFuncionarios = this.dao.listarFuncionarios();
 	}
 	
-	public void fecharModalCadastroFuncionario() {
+	public void fecharModalCadastroFuncionario() 
+	{
 		PrimeFaces.current().executeScript("PF('dlgCadFuncionario').hide()");
 	}
 	
-	public void fecharModalEdicaoFuncionario() {
+	public void fecharModalEdicaoFuncionario() 
+	{
 		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').hide()");
+	}
+	
+	private Boolean verificarSeExisteEmailCadastrado(String email) 
+	{
+		 if (this.dao.verificarSeExisteEmailCadastrado(email))
+			 criarMensagem(FacesMessage.SEVERITY_WARN, "Email já cadastrado!", "Email já cadastrado!");
+		 else
+			 return true;
+		
+		return false;
+	}
+	
+	private Boolean verificarSeExisteCPFCadastrado(String cpf)
+	{
+		if (this.dao.verificarSeExisteCpfCadastrado(cpf))
+			criarMensagem(FacesMessage.SEVERITY_WARN, "CPF já cadastrado!", "CPF já cadastrado!");
+		else
+			return true;
+		
+		return false;
 	}
 	
 	private void condicaoVisualizacaoEdicao(Boolean visualizandoFuncionario, Boolean editandoFuncionario) {
