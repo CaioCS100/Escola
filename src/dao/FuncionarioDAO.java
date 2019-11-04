@@ -96,11 +96,47 @@ public class FuncionarioDAO {
 		return false;
 	}
 	
-	public Boolean verificarSeExisteCpfCadastrado(String cpf)
+	public Boolean alterarFuncionario(Pessoa funcionario)
 	{
 		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_CPF)) {
-			pst.setString(1, cpf);
+				PreparedStatement pst = conn.prepareStatement(QUERY_ALTERAR_FUNCIONARIO)) {
+			pst.setString(1, funcionario.getNome());
+			pst.setDate(2, new Date(funcionario.getDataNascimento().getTime()));
+			pst.setString(3, funcionario.getCpf());
+			pst.setString(4, funcionario.getTelefone());
+			pst.setString(5, funcionario.getEmail());
+			pst.setString(6, funcionario.getEndereco().getCep());
+			pst.setString(7, funcionario.getEndereco().getLogradouro());
+			pst.setString(8, funcionario.getEndereco().getCidade());
+			pst.setString(9, funcionario.getEndereco().getBairro());
+			pst.setString(10, funcionario.getEndereco().getUf());
+			pst.setString(11, funcionario.getEndereco().getNumero());
+			pst.setString(12, funcionario.getEndereco().getComplemento());
+			pst.setLong(13, funcionario.getId());
+			pst.executeLargeUpdate();
+			conn.commit();
+			return true;
+			
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em atualizar o Funcionário!");
+		}
+		
+		return false;
+	}
+	
+	public Boolean verificarSeExisteCpfCadastrado(Pessoa dadosFuncionrio)
+	{
+		String sql = QUERY_CONSULTAR_CPF;
+		
+		if (dadosFuncionrio.getId() != null)
+			sql += CONDICAO_FILTRO_POR_ID;
+		
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(sql)) {
+			pst.setString(1, dadosFuncionrio.getCpf());
+			if (dadosFuncionrio.getId() != null)
+				pst.setLong(2, dadosFuncionrio.getId());
+			
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next())
 					return true;

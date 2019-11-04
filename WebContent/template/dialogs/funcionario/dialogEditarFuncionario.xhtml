@@ -113,20 +113,6 @@
 						value="#{funcionarioController.funcionarioSelecionado.matricula}">
 						<p:ajax update="@this, labelMatricula, mensagem" />
 					</p:inputMask>
-
-					<p:outputLabel for="senha" value="Senha:"
-						rendered="#{funcionarioController.edicaoFuncionario}" />
-					<p:password id="senha" required="true" match="confirmarSenha"
-						rendered="#{funcionarioController.edicaoFuncionario}"
-						requiredMessage="O campo Senha é obrigatório!"
-						validatorMessage="Os valores dos campos Senha e Confirmar Senha são diferentes!"
-						value="#{funcionarioController.funcionario.senha}"></p:password>
-
-					<p:outputLabel for="confirmarSenha" value="Confirmar senha:"
-						rendered="#{funcionarioController.edicaoFuncionario}" />
-					<p:password id="confirmarSenha" required="true"
-						rendered="#{funcionarioController.edicaoFuncionario}"
-						requiredMessage="É obrigatório confirmar sua senha"></p:password>
 				</p:panelGrid>
 
 				<p:commandButton value="Editar"

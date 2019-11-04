@@ -45,7 +45,8 @@ public class FuncionarioController {
 	public void cadastrarFuncionario()
 	{		
 		this.funcionario.setCategoria(FUNCIONARIO.getValor());
-		if (verificarSeExisteCPFCadastrado(this.funcionario.getCpf()) && verificarSeExisteEmailCadastrado(this.funcionario.getEmail()))
+		this.funcionario.setId(null);;
+		if (!verificarSeExisteCPFCadastrado(this.funcionario) && !verificarSeExisteEmailCadastrado(this.funcionario.getEmail()))
 		{
 			if (this.dao.cadastrarFuncionario(funcionario)) 
 			{
@@ -57,6 +58,12 @@ public class FuncionarioController {
 			else
 				criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em cadastrar o funcionário", "erro!");
 		}
+	}
+	
+	public void editarFuncionario()
+	{
+		if (!verificarSeExisteCPFCadastrado(this.funcionarioSelecionado))
+			System.out.println("Pronto para editar");
 	}
 	
 	public void abrirModalCadastroFuncionario()
@@ -78,16 +85,11 @@ public class FuncionarioController {
 		buscarFuncionario();
 	}
 	
-	public void buscarFuncionario()
+	private void buscarFuncionario()
 	{
 		this.funcionarioSelecionado = this.dao.procurarFuncionario(Long.valueOf((funcionario.getMatricula_id())));
 		PrimeFaces.current().ajax().update(":formEditarFuncionario");
 		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').show()");
-	}
-	
-	public void editarFuncionario()
-	{
-		System.out.println("Pronto para editar");
 	}
 	
 	public void verificarCEP()
@@ -119,19 +121,19 @@ public class FuncionarioController {
 		 if (this.dao.verificarSeExisteEmailCadastrado(email))
 			 criarMensagem(FacesMessage.SEVERITY_WARN, "Email já cadastrado!", "Email já cadastrado!");
 		 else
-			 return true;
+			 return false;
 		
-		return false;
+		return true;
 	}
 	
-	private Boolean verificarSeExisteCPFCadastrado(String cpf)
+	private Boolean verificarSeExisteCPFCadastrado(Pessoa dadosFuncionario)
 	{
-		if (this.dao.verificarSeExisteCpfCadastrado(cpf))
+		if (this.dao.verificarSeExisteCpfCadastrado(dadosFuncionario)) 
 			criarMensagem(FacesMessage.SEVERITY_WARN, "CPF já cadastrado!", "CPF já cadastrado!");
 		else
-			return true;
+			return false;
 		
-		return false;
+		return true;
 	}
 	
 	private void condicaoVisualizacaoEdicao(Boolean visualizandoFuncionario, Boolean editandoFuncionario) {

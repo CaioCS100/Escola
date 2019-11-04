@@ -12,6 +12,11 @@ public class QuerriesFuncionario {
 			+ " cidade, uf, numero, id_matricula)"
 			+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
+	public static final String QUERY_ALTERAR_FUNCIONARIO = 
+			"update funcionarios set nome = ?, data_nascimento = ?, cpf = ?, telefone = ?, email = ?, cep = ?,"
+			+ " endereco = ?, cidade = ?, bairro = ?, uf = ?, numero = ?, complemento = ?"
+			+ " where id = ?";
+	
 	public static final String QUERY_CONSULTAR_CPF = 
 			"select cpf"
 			+ " from funcionarios"
@@ -26,4 +31,7 @@ public class QuerriesFuncionario {
 			"select func.id, nome, data_nascimento, cpf, telefone, email, id_matricula"
 			+ " from funcionarios as func join dados_matricula as mat on func.id_matricula = mat.id"
 			+ " where mat.ativo = true";
+	
+	public static final String CONDICAO_FILTRO_POR_ID = 
+			" and id != ?";
 }

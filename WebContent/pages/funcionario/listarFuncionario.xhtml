@@ -70,12 +70,20 @@
 					<p:tooltip id="toolTipEditar" for="btnEditar"
 						value="Editar Funcionário" position="top" />
 
+					<p:commandButton icon="fa fa-fw fab fa-expeditedssl" id="btnAlterarSenha"
+						styleClass="icone btns" action="#">
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{funcionarioController.funcionario}" />
+					</p:commandButton>
+					
+					<p:tooltip id="toolTipAlterarSenha" for="btnAlterarSenha"
+						value="Alterar Senha" position="top" />
+
 					<p:commandButton icon="fa fa-fw fas fa-trash" id="btnExcluir"
 						styleClass="icone btns" action="#">
 						<f:setPropertyActionListener value="#{funcionario}"
 							target="#{funcionarioController.funcionario}" />
 					</p:commandButton>
-
 
 					<p:tooltip id="toolTipExcluir" for="btnExcluir"
 						value="Excluir Funcionário" position="top" />
