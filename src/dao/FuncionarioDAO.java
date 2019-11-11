@@ -113,7 +113,7 @@ public class FuncionarioDAO {
 			pst.setString(11, funcionario.getEndereco().getNumero());
 			pst.setString(12, funcionario.getEndereco().getComplemento());
 			pst.setLong(13, funcionario.getId());
-			pst.executeLargeUpdate();
+			pst.executeUpdate();
 			conn.commit();
 			return true;
 			
@@ -124,18 +124,18 @@ public class FuncionarioDAO {
 		return false;
 	}
 	
-	public Boolean verificarSeExisteCpfCadastrado(Pessoa dadosFuncionrio)
+	public Boolean verificarSeExisteCpfCadastrado(String cpf, Long id)
 	{
 		String sql = QUERY_CONSULTAR_CPF;
 		
-		if (dadosFuncionrio.getId() != null)
+		if (id != null)
 			sql += CONDICAO_FILTRO_POR_ID;
 		
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sql)) {
-			pst.setString(1, dadosFuncionrio.getCpf());
-			if (dadosFuncionrio.getId() != null)
-				pst.setLong(2, dadosFuncionrio.getId());
+			pst.setString(1, cpf);
+			if (id != null)
+				pst.setLong(2, id);
 			
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next())
@@ -149,11 +149,19 @@ public class FuncionarioDAO {
 		return false;
 	}
 	
-	public Boolean verificarSeExisteEmailCadastrado(String email)
+	public Boolean verificarSeExisteEmailCadastrado(String email, Long id)
 	{
+		String sql = QUERY_CONSULTAR_EMAIL;
+		
+		if (id != null)
+			sql += CONDICAO_FILTRO_POR_ID;
+		
 		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_EMAIL)) {
+				PreparedStatement pst = conn.prepareStatement(sql)) {
 			pst.setString(1, email);
+			if (id != null)
+				pst.setLong(2, id);
+			
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next())
 					return true;

@@ -45,8 +45,8 @@ public class FuncionarioController {
 	public void cadastrarFuncionario()
 	{		
 		this.funcionario.setCategoria(FUNCIONARIO.getValor());
-		this.funcionario.setId(null);;
-		if (!verificarSeExisteCPFCadastrado(this.funcionario) && !verificarSeExisteEmailCadastrado(this.funcionario.getEmail()))
+		if (!verificarSeExisteCPFCadastrado(this.funcionario.getCpf(), this.funcionario.getId()) &&
+				!verificarSeExisteEmailCadastrado(this.funcionario.getEmail(), this.funcionario.getId()))
 		{
 			if (this.dao.cadastrarFuncionario(funcionario)) 
 			{
@@ -62,8 +62,19 @@ public class FuncionarioController {
 	
 	public void editarFuncionario()
 	{
-		if (!verificarSeExisteCPFCadastrado(this.funcionarioSelecionado))
-			System.out.println("Pronto para editar");
+		if (!verificarSeExisteCPFCadastrado(this.funcionarioSelecionado.getCpf(), this.funcionarioSelecionado.getId()) &&
+				!verificarSeExisteEmailCadastrado(this.funcionarioSelecionado.getEmail(), this.funcionarioSelecionado.getId()))
+		{
+			if (this.dao.alterarFuncionario(funcionarioSelecionado))
+			{
+				criarMensagem(FacesMessage.SEVERITY_INFO, "Funcionário editado com sucesso!", "sucesso!");
+				fecharModalEdicaoFuncionario();
+				carregarTabelaFuncionarios();
+				PrimeFaces.current().ajax().update(":formTabela");
+			}
+			else
+				criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em editar o funcionário", "erro!");
+		}
 	}
 	
 	public void abrirModalCadastroFuncionario()
@@ -95,7 +106,11 @@ public class FuncionarioController {
 	public void verificarCEP()
 	{
 		try {
-			this.funcionario.setEndereco(consulta(this.funcionario.getEndereco().getCep().replaceAll("\\D", "")));
+			if (!this.edicaoFuncionario)
+				this.funcionario.setEndereco(consulta(this.funcionario.getEndereco().getCep().replaceAll("\\D", "")));
+			else
+				this.funcionarioSelecionado.setEndereco(consulta(this.funcionarioSelecionado.getEndereco().getCep().replaceAll("\\D", "")));
+			
 		} catch (SQLException_Exception | SigepClienteException ex) {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "erro!");
 		}
@@ -116,9 +131,9 @@ public class FuncionarioController {
 		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').hide()");
 	}
 	
-	private Boolean verificarSeExisteEmailCadastrado(String email) 
+	private Boolean verificarSeExisteEmailCadastrado(String email, Long id) 
 	{
-		 if (this.dao.verificarSeExisteEmailCadastrado(email))
+		 if (this.dao.verificarSeExisteEmailCadastrado(email, id))
 			 criarMensagem(FacesMessage.SEVERITY_WARN, "Email já cadastrado!", "Email já cadastrado!");
 		 else
 			 return false;
@@ -126,9 +141,9 @@ public class FuncionarioController {
 		return true;
 	}
 	
-	private Boolean verificarSeExisteCPFCadastrado(Pessoa dadosFuncionario)
+	private Boolean verificarSeExisteCPFCadastrado(String cpf, Long id)
 	{
-		if (this.dao.verificarSeExisteCpfCadastrado(dadosFuncionario)) 
+		if (this.dao.verificarSeExisteCpfCadastrado(cpf, id)) 
 			criarMensagem(FacesMessage.SEVERITY_WARN, "CPF já cadastrado!", "CPF já cadastrado!");
 		else
 			return false;

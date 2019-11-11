@@ -24,4 +24,19 @@ public class ConsultarCep {
     	
 		return endereco;
 	}
+	
+//	public static void main(String[] args) {
+//		String cep = "66842123";
+//		try {
+//			Endereco enderecoERP = new ConsultarCep().consulta(cep);
+//			
+//			System.out.println(enderecoERP.getBairro());
+//	        System.out.println(enderecoERP.getCidade());
+//	        System.out.println(enderecoERP.getLogradouro());
+//	        System.out.println(enderecoERP.getUf());
+//		} catch (SQLException_Exception | SigepClienteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }
