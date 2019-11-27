@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 
 import connection.ConnectionFactory;
-import model.Endereco;
 import model.Pessoa;
 import static constantes.queries.QuerriesFuncionario.*;
 import static constantes.queries.QueriesLogin.QUERY_CADASTRAR_DADOS_MATRICULA;

@@ -3,13 +3,13 @@ package controller;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.validator.ValidatorException;
 
 import org.primefaces.PrimeFaces;
 
 import br.com.correios.bsb.sigep.master.bean.cliente.SQLException_Exception;
 import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
 import dao.FuncionarioDAO;
+import dao.UsuarioDAO;
 import model.Pessoa;
 
 import static enums.Categoria.*;
@@ -30,16 +30,20 @@ public class FuncionarioController {
 	private final Pessoa funcionarioSessao;
 	private static final String FUNCIONARIO_SESSAO = "funcionario";
 	private final FuncionarioDAO dao;
+	private final UsuarioDAO usuarioDAO;
 	private final ArrayList<String> ufs;
 	private ArrayList<Pessoa> listaFuncionarios;
-	private Boolean edicaoFuncionario;
-	private Boolean leituraFuncionario;
+	private boolean edicaoFuncionario;
+	private boolean leituraFuncionario;
+	private String senhaAntiga;
+	private String novaSenha;
 
 	public FuncionarioController() {
 		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
 		this.ufs = CARREGAR_UFS;
 		this.funcionario = new Pessoa();
 		this.dao = new FuncionarioDAO();
+		this.usuarioDAO = new UsuarioDAO();
 	}
 
 	public void cadastrarFuncionario()
@@ -77,6 +81,18 @@ public class FuncionarioController {
 		}
 	}
 	
+	public void editarSenha()
+	{
+		if (this.senhaAntiga == this.novaSenha)
+			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em alterar a senha.A senha antiga e a senha atual são as mesmas", "erro!");
+		else {
+			if (this.usuarioDAO.alterarSenha(this.novaSenha, Long.valueOf((funcionario.getMatricula_id()))))
+				criarMensagem(FacesMessage.SEVERITY_INFO, "Senha alterada com sucesso!!", "sucesso!");
+			else
+				criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em alterar a senha!", "erro!");
+		}
+	}
+	
 	public void abrirModalCadastroFuncionario()
 	{
 		this.funcionario = new Pessoa();
@@ -96,11 +112,10 @@ public class FuncionarioController {
 		buscarFuncionario();
 	}
 	
-	private void buscarFuncionario()
+	public void abrirModalEditarSenha()
 	{
-		this.funcionarioSelecionado = this.dao.procurarFuncionario(Long.valueOf((funcionario.getMatricula_id())));
-		PrimeFaces.current().ajax().update(":formEditarFuncionario");
-		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').show()");
+		PrimeFaces.current().ajax().update(":formAlterarSenha");
+		PrimeFaces.current().executeScript("PF('dlgAlterarSenha').show()");
 	}
 	
 	public void verificarCEP()
@@ -129,6 +144,18 @@ public class FuncionarioController {
 	public void fecharModalEdicaoFuncionario() 
 	{
 		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').hide()");
+	}
+	
+	public void fecharModalEdicaoSenha() 
+	{
+		PrimeFaces.current().executeScript("PF('dlgAlterarSenha').hide()");
+	}
+	
+	private void buscarFuncionario()
+	{
+		this.funcionarioSelecionado = this.dao.procurarFuncionario(Long.valueOf((funcionario.getMatricula_id())));
+		PrimeFaces.current().ajax().update(":formEditarFuncionario");
+		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').show()");
 	}
 	
 	private Boolean verificarSeExisteEmailCadastrado(String email, Long id) 
@@ -190,5 +217,21 @@ public class FuncionarioController {
 
 	public Boolean getLeituraFuncionario() {
 		return leituraFuncionario;
+	}
+
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
 	}
 }

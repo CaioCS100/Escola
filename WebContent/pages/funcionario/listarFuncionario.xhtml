@@ -71,7 +71,7 @@
 						value="Editar Funcionário" position="top" />
 
 					<p:commandButton icon="fa fa-fw fab fa-expeditedssl" id="btnAlterarSenha"
-						styleClass="icone btns" action="#">
+						styleClass="icone btns" action="#{funcionarioController.abrirModalEditarSenha()}">
 						<f:setPropertyActionListener value="#{funcionario}"
 							target="#{funcionarioController.funcionario}" />
 					</p:commandButton>

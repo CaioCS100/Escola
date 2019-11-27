@@ -26,7 +26,7 @@ public class ConsultarCep {
 	}
 	
 //	public static void main(String[] args) {
-//		String cep = "66842123";
+//		String cep = "57045622";
 //		try {
 //			Endereco enderecoERP = new ConsultarCep().consulta(cep);
 //			

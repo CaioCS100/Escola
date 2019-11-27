@@ -38,6 +38,23 @@ public class UsuarioDAO {
 		return usuario;
 	}
 	
+	public Boolean alterarSenha(String novaSenha, Long id)
+	{
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(QUERY_ATUALIZAR_SENHA)) {
+			
+			pst.setString(1, novaSenha);
+			pst.setLong(2, id);
+			pst.executeUpdate();
+			conn.commit();
+			return true;
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em atualizar a senha!");
+		}
+		
+		return false;
+	}
+	
 	
 	public Boolean verificarSeExisteMatriculaCadastrada(Long matricula)
 	{

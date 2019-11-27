@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:stella="http://stella.caelum.com.br/faces2"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<p:dialog resizable="false" closable="false" draggable="false"
+		header="Alterar Senha" modal="true" widgetVar="dlgAlterarSenha">
+		<h:form id="formAlterarSenha">
+			<p:growl id="mensagem" />
+			<div align="center" class="separarTopo">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="senhaAntiga" value="Senha Antiga:" />
+					<p:password id="senhaAntiga" required="true"
+						requiredMessage="O campo Senha Antiga é obrigatório!"
+						value="#{funcionarioController.senhaAntiga}"></p:password>
+
+
+					<p:outputLabel for="senha" value="Nova Senha:" />
+					<p:password id="senha" required="true" match="confirmarSenha"
+						requiredMessage="O campo Nova Senha é obrigatório!"
+						validatorMessage="Os valores dos campos Senha e Confirmar Senha são diferentes!"
+						value="#{funcionarioController.novaSenha}"></p:password>
+
+					<p:outputLabel for="confirmarSenha" value="Confirmar senha:" />
+					<p:password id="confirmarSenha" required="true"
+						requiredMessage="O campo Confirmar Senha é obrigatório"></p:password>
+				</p:panelGrid>
+
+				<p:commandButton value="Alterar Senha"
+					action="#{funcionarioController.editarSenha()}"
+					styleClass="botoesFormulario" />
+
+				<p:commandButton value="Fechar" ajax="true" immediate="true"
+					styleClass="botaoFechar"
+					action="#{funcionarioController.fecharModalEdicaoSenha()}" />
+			</div>
+		</h:form>
+		<p:ajaxStatus onstart="PF('dlgLoading').show()"
+			onsuccess="PF('dlgLoading').hide()" />
+	</p:dialog>
+</h:body>
+</html>

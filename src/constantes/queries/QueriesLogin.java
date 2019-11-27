@@ -16,4 +16,9 @@ public class QueriesLogin {
 			"select matricula"
 			+ " from dados_matricula"
 			+ " where matricula = ?";
+	
+	public static final String QUERY_ATUALIZAR_SENHA =
+			"update dados_matricula"
+			+ " set senha = ?, ultima_modificacao = now()"
+			+ " where id = (select id_matricula from funcionarios where id = ?)";
 }
