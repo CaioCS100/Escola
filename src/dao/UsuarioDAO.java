@@ -42,7 +42,6 @@ public class UsuarioDAO {
 	{
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(QUERY_ATUALIZAR_SENHA)) {
-			
 			pst.setString(1, novaSenha);
 			pst.setLong(2, id);
 			pst.executeUpdate();
@@ -67,6 +66,23 @@ public class UsuarioDAO {
 			}
 		} catch (SQLException ex) {
 			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em verificar a matricula do funcionário!");
+		}
+		
+		return false;
+	}
+	
+	public Boolean verificarSeExisteSenha(String senhaAtual, Long id)
+	{
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(QUERY_CONSULTAR_SENHA)) {
+			pst.setLong(1, id);
+			pst.setString(2, senhaAtual);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next())
+					return true;
+			}
+		} catch (SQLException ex) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Erro em verificar a senha atual!");
 		}
 		
 		return false;

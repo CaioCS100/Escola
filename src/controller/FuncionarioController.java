@@ -35,7 +35,7 @@ public class FuncionarioController {
 	private ArrayList<Pessoa> listaFuncionarios;
 	private boolean edicaoFuncionario;
 	private boolean leituraFuncionario;
-	private String senhaAntiga;
+	private String senhaAtual;
 	private String novaSenha;
 
 	public FuncionarioController() {
@@ -83,11 +83,11 @@ public class FuncionarioController {
 	
 	public void editarSenha()
 	{
-		if (this.senhaAntiga == this.novaSenha)
-			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em alterar a senha.A senha antiga e a senha atual são as mesmas", "erro!");
-		else {
-			if (this.usuarioDAO.alterarSenha(this.novaSenha, Long.valueOf((funcionario.getMatricula_id()))))
-				criarMensagem(FacesMessage.SEVERITY_INFO, "Senha alterada com sucesso!!", "sucesso!");
+		if (verificarSeExisteSenha(this.senhaAtual, funcionario.getId()) && !verificarSeSenhaSaoIguais(this.senhaAtual, this.novaSenha)) {
+			if (this.usuarioDAO.alterarSenha(this.novaSenha, funcionario.getId())) {
+				criarMensagem(FacesMessage.SEVERITY_INFO, "Senha alterada com sucesso!", "sucesso!");
+				fecharModalEdicaoSenha();
+			}
 			else
 				criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em alterar a senha!", "erro!");
 		}
@@ -158,6 +158,26 @@ public class FuncionarioController {
 		PrimeFaces.current().executeScript("PF('dlgEditarFuncionario').show()");
 	}
 	
+	private Boolean verificarSeExisteSenha(String senhaAtual, Long id)
+	{
+		if (!usuarioDAO.verificarSeExisteSenha(senhaAtual, id)) {
+			criarMensagem(FacesMessage.SEVERITY_WARN, "O campo senha atual está incompatível com o valor no banco de daods!", "Erro!");
+			return false;
+		}
+		
+		return true;	
+	}
+	
+	private Boolean verificarSeSenhaSaoIguais(String senhaAtual, String novaSenha)
+	{
+		if (senhaAtual.equals(novaSenha)) {
+			criarMensagem(FacesMessage.SEVERITY_ERROR, "Erro em alterar a senha. A senha antiga e a senha atual são as mesmas", "erro!");
+			return true;
+		}
+		
+		return false;
+	}
+	
 	private Boolean verificarSeExisteEmailCadastrado(String email, Long id) 
 	{
 		 if (this.dao.verificarSeExisteEmailCadastrado(email, id))
@@ -219,12 +239,12 @@ public class FuncionarioController {
 		return leituraFuncionario;
 	}
 
-	public String getSenhaAntiga() {
-		return senhaAntiga;
+	public String getSenhaAtual() {
+		return senhaAtual;
 	}
 
-	public void setSenhaAntiga(String senhaAntiga) {
-		this.senhaAntiga = senhaAntiga;
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
 	}
 
 	public String getNovaSenha() {

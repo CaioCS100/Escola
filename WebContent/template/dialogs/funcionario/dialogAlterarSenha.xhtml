@@ -16,7 +16,7 @@
 					<p:outputLabel for="senhaAntiga" value="Senha Antiga:" />
 					<p:password id="senhaAntiga" required="true"
 						requiredMessage="O campo Senha Antiga é obrigatório!"
-						value="#{funcionarioController.senhaAntiga}"></p:password>
+						value="#{funcionarioController.senhaAtual}"></p:password>
 
 
 					<p:outputLabel for="senha" value="Nova Senha:" />
@@ -30,12 +30,12 @@
 						requiredMessage="O campo Confirmar Senha é obrigatório"></p:password>
 				</p:panelGrid>
 
-				<p:commandButton value="Alterar Senha"
+				<p:commandButton value="Alterar Senha" update="mensagem"
 					action="#{funcionarioController.editarSenha()}"
-					styleClass="botoesFormulario" />
+					styleClass="btnAlterarSenha" />
 
 				<p:commandButton value="Fechar" ajax="true" immediate="true"
-					styleClass="botaoFechar"
+					styleClass="btnFecharDialog"
 					action="#{funcionarioController.fecharModalEdicaoSenha()}" />
 			</div>
 		</h:form>
