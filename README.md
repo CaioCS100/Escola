@@ -8,4 +8,3 @@ Para usar o projeto **deve-se:**
   - db.user=seu usuario do banco
   - db.password=sua senha do banco
   - db.url=sua url do banco
-  - **É importante não colocar espaço entre a chave, o simbolo de igual e o valor**
