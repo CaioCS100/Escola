@@ -10,3 +10,9 @@
 .project
 .metadata
 config.properties
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+.idea/

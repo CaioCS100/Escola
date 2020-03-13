@@ -8,7 +8,7 @@ import model.Usuario;
 import static util.Sessao.*;
 
 import static util.Redirecionamento.*;
-import static enums.Categoria.*;
+import static shared.enums.Categoria.*;
 
 import static util.Mensagem.*;
 

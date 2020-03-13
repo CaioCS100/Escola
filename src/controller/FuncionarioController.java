@@ -12,7 +12,7 @@ import dao.FuncionarioDAO;
 import dao.UsuarioDAO;
 import model.Pessoa;
 
-import static enums.Categoria.*;
+import static shared.enums.Categoria.*;
 import static util.Sessao.*;
 import static util.Ufs.*;
 import static util.ConsultarCep.*;

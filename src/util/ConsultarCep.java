@@ -5,7 +5,10 @@ import br.com.correios.bsb.sigep.master.bean.cliente.AtendeClienteService;
 import br.com.correios.bsb.sigep.master.bean.cliente.EnderecoERP;
 import br.com.correios.bsb.sigep.master.bean.cliente.SQLException_Exception;
 import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
+import com.google.gson.Gson;
 import model.Endereco;
+
+import java.net.HttpURLConnection;
 
 public class ConsultarCep {
 	
@@ -23,6 +26,21 @@ public class ConsultarCep {
     	endereco.setBairro(enderecoERP.getBairro());
     	
 		return endereco;
+	}
+
+	public static Endereco consultarCep(String cep) {
+		String url = "https://viacep.com.br/ws/'" + cep + "'/json/";
+
+		return null;
+	}
+
+	private void a() {
+		HttpURLConnection conURL = null;
+
+		Gson g = new Gson();
+
+
+
 	}
 	
 //	public static void main(String[] args) {

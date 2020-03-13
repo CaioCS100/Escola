@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import javax.faces.application.FacesMessage;
 
 import connection.ConnectionFactory;
-import static constantes.queries.QueriesLogin.*;
+import static shared.queries.QueriesLogin.*;
 import model.Usuario;
 import static util.Mensagem.*;
 
