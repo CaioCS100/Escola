@@ -11,13 +11,19 @@ import br.com.correios.bsb.sigep.master.bean.cliente.SigepClienteException;
 import dao.FuncionarioDAO;
 import dao.UsuarioDAO;
 import model.Pessoa;
+import service.RelatorioService;
+import service.impl.RelatorioServiceImpl;
 
 import static shared.enums.Categoria.*;
 import static util.Sessao.*;
 import static util.Ufs.*;
 import static util.ConsultarCep.*;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static util.Mensagem.*;
 
@@ -25,6 +31,7 @@ import static util.Mensagem.*;
 @ViewScoped
 public class FuncionarioController {
 
+	private final RelatorioService relatorioService;
 	private Pessoa funcionario;
 	private Pessoa funcionarioSelecionado;
 	private final Pessoa funcionarioSessao;
@@ -39,11 +46,22 @@ public class FuncionarioController {
 	private String novaSenha;
 
 	public FuncionarioController() {
+		this.relatorioService = new RelatorioServiceImpl();
 		this.funcionarioSessao = (Pessoa) recuperarObjetoDaSessao(FUNCIONARIO_SESSAO);
 		this.ufs = CARREGAR_UFS;
 		this.funcionario = new Pessoa();
 		this.dao = new FuncionarioDAO();
 		this.usuarioDAO = new UsuarioDAO();
+	}
+
+	public void gerarRelatorio() {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			Date dataTeste = formato.parse("1985/12/25");
+			relatorioService.gerarRelatorioFuncionario(dataTeste);
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void cadastrarFuncionario()

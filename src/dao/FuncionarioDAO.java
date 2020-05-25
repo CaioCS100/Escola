@@ -11,8 +11,8 @@ import javax.faces.application.FacesMessage;
 
 import connection.ConnectionFactory;
 import model.Pessoa;
-import static shared.queries.QuerriesFuncionario.*;
-import static shared.queries.QueriesLogin.QUERY_CADASTRAR_DADOS_MATRICULA;
+import static shared.queries.Funcionario.*;
+import static shared.queries.Login.QUERY_CADASTRAR_DADOS_MATRICULA;
 import static util.Mensagem.*;
 
 public class FuncionarioDAO {

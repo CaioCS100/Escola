@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/template/templateGeral.xhtml">
+    <ui:define name="title">
+        Relatórios
+    </ui:define>
+    <ui:define name="conteudo">
+        <h:form id="formRelatorios">
+            <p:commandButton value="Gerar Relatório de Funcionários" id="btnGerarRelatorio" ajax="false"
+                             action="#{funcionarioController.gerarRelatorio()}"
+                             onclick="this.form.target = '_blank'"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
